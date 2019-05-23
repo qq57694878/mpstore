@@ -6,10 +6,11 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.kit.Kv;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import com.kulongtai.mpstore.common.mp.util.HttpUtils;
+import com.kulongtai.mpstore.common.mp.util.JsonUtils;
+import com.kulongtai.mpstore.common.mp.util.Kv;
+import com.kulongtai.mpstore.common.mp.util.ParaMap;
 
 import java.io.InputStream;
 import java.util.HashMap;

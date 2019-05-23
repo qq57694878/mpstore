@@ -6,7 +6,7 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.kulongtai.mpstore.common.mp.util.JsonUtils;
 
 import java.io.Serializable;
 

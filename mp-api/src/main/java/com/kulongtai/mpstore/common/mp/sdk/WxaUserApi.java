@@ -6,13 +6,12 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.kit.HashKit;
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.encrypt.WxaBizDataCrypt;
-import com.jfinal.weixin.sdk.kit.PaymentKit;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.wxaapp.WxaConfig;
-import com.jfinal.wxaapp.WxaConfigKit;
+
+
+import com.kulongtai.mpstore.common.mp.encrypt.WxaBizDataCrypt;
+import com.kulongtai.mpstore.common.mp.util.HashKit;
+import com.kulongtai.mpstore.common.mp.util.HttpUtils;
+import com.kulongtai.mpstore.common.mp.util.PaymentKit;
 
 import java.util.HashMap;
 import java.util.Map;

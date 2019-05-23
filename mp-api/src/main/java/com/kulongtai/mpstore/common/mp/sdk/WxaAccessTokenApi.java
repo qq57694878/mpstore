@@ -6,16 +6,16 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.RetryUtils;
-import com.jfinal.wxaapp.WxaConfig;
-import com.jfinal.wxaapp.WxaConfigKit;
 
+import com.kulongtai.mpstore.common.mp.cache.DefaultAccessTokenCache;
+import com.kulongtai.mpstore.common.mp.cache.IAccessTokenCache;
+import com.kulongtai.mpstore.common.mp.util.HttpUtils;
+import com.kulongtai.mpstore.common.mp.util.RetryUtils;
+import com.xiaoleilu.hutool.map.MapBuilder;
+import com.xiaoleilu.hutool.map.MapUtil;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -38,7 +38,7 @@ public class WxaAccessTokenApi {
         WxaConfig wc = WxaConfigKit.getWxaConfig();
         WxaAccessToken result = getAvailableAccessToken(wc);
         if (result == null) {
-            synchronized(AccessTokenApi.class) {
+            synchronized(WxaAccessToken.class) {
                 result = getAvailableAccessToken(wc);
                 if (result == null) {
                     result = refreshAccessToken(wc);
@@ -50,9 +50,9 @@ public class WxaAccessTokenApi {
 
     private static WxaAccessToken getAvailableAccessToken(WxaConfig wc) {
         // 利用 appId 与 accessToken 建立关联，支持多账户
-        IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+        IAccessTokenCache accessTokenCache = new DefaultAccessTokenCache();
         String accessTokenJson = accessTokenCache.get(cachePrefix + wc.getAppId());
-        if (StrKit.notBlank(accessTokenJson)) {
+        if (StringUtils.isNotEmpty(accessTokenJson)) {
             WxaAccessToken result = new WxaAccessToken(accessTokenJson);
             if (result != null && result.isAvailable()) {
                 return result;
@@ -77,7 +77,9 @@ public class WxaAccessTokenApi {
     private static WxaAccessToken refreshAccessToken(WxaConfig wc) {
         String appId = wc.getAppId();
         String appSecret = wc.getAppSecret();
-        final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
+        Map<String, String> queryParas = new HashMap<>();
+        queryParas.put("appid", appId);
+        queryParas.put("secret", appSecret);
 
         // 最多三次请求
         WxaAccessToken result = RetryUtils.retryOnException(3, new Callable<WxaAccessToken>() {
@@ -92,7 +94,7 @@ public class WxaAccessTokenApi {
         // 三次请求如果仍然返回了不可用的 access token 仍然 put 进去，便于上层通过 WxaAccessToken 中的属性判断底层的情况
         if (null != result) {
             // 利用 appId 与 accessToken 建立关联，支持多账户
-            IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+            IAccessTokenCache accessTokenCache = new DefaultAccessTokenCache();
             accessTokenCache.set(cachePrefix + wc.getAppId(), result.getCacheJson());
         }
         return result;

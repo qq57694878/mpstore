@@ -6,9 +6,9 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import com.kulongtai.mpstore.common.mp.util.HttpUtils;
+import com.kulongtai.mpstore.common.mp.util.JsonUtils;
 
 import java.util.HashMap;
 import java.util.Map;

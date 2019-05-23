@@ -6,12 +6,10 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.kit.StringUtils;
-import com.jfinal.log.Log;
-import com.jfinal.weixin.sdk.api.PaymentApi;
-import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
-import com.jfinal.weixin.sdk.kit.PaymentKit;
-import com.jfinal.weixin.sdk.utils.PaymentException;
+
+import com.kulongtai.mpstore.common.mp.util.PaymentKit;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +19,9 @@ import java.util.Map;
  * @author L.cm
  *
  */
+@Slf4j
 public class WxaPayApi {
-    private static final Log log = Log.getLog(WxaPayApi.class);
+
     /**
      * 小程序统一下单
      * @param order 小程序支付订单信息封装
@@ -39,29 +38,29 @@ public class WxaPayApi {
         params.put("out_trade_no", order.getOutTradeNo());
         params.put("total_fee", order.getTotalFee());
         params.put("spbill_create_ip", order.getSpbillCreateIp());
-        params.put("trade_type", TradeType.JSAPI.name());
+        params.put("trade_type", PaymentApi.TradeType.JSAPI.name());
         params.put("nonce_str", System.currentTimeMillis() / 1000 + "");
         params.put("notify_url", order.getNotifyUrl());
         params.put("openid", order.getOpenId());
 
         // 附加数据，在查询API和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据
         String attach = order.getAttach();
-        if (StringUtils.notBlank(attach)) {
+        if (StringUtils.isNotEmpty(attach)) {
             params.put("attach", attach);
         }
         // 订单生成时间，格式为yyyyMMddHHmmss
         String timeStart = order.getTimeStart();
-        if (StringUtils.notBlank(timeStart)) {
+        if (StringUtils.isNotEmpty(timeStart)) {
             params.put("time_start", timeStart);
         }
         // 订单失效时间，格式为yyyyMMddHHmmss。注意：最短失效时间间隔必须大于5分钟
         String timeExpire = order.getTimeExpire();
-        if (StringUtils.notBlank(timeExpire)) {
+        if (StringUtils.isNotEmpty(timeExpire)) {
             params.put("time_expire", timeExpire);
         }
         // 商品标记，代金券或立减优惠功能的参数，
         String goodsTag = order.getGoodsTag();
-        if (StringUtils.notBlank(goodsTag)) {
+        if (StringUtils.isNotEmpty(goodsTag)) {
             params.put("goods_tag", goodsTag);
         }
         String signKey = order.getSignKey();

@@ -6,8 +6,8 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
+
+import com.kulongtai.mpstore.common.mp.util.HttpUtils;
 
 /**
  * 微信小程序模版消息

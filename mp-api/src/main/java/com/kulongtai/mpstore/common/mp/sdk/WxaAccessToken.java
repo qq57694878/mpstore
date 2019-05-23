@@ -6,15 +6,16 @@
 
 package com.kulongtai.mpstore.common.mp.sdk;
 
-import com.jfinal.weixin.sdk.api.ReturnCode;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
+
+
+import com.kulongtai.mpstore.common.mp.util.JsonUtils;
+import com.kulongtai.mpstore.common.mp.util.RetryUtils;
 
 import java.io.Serializable;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public class WxaAccessToken implements ResultCheck, Serializable {
+public class WxaAccessToken implements RetryUtils.ResultCheck, Serializable {
     private static final long serialVersionUID = 4628857059125205404L;
 
     private String access_token;    // 正确获取到 access_token 时有值
