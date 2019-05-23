@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from './router/axios';
 import VueAxios from 'vue-axios';
+import VueMoment from 'vue-moment'
 import App from './App';
 import router from './router/router';
 import './permission'; // 权限
@@ -30,6 +31,7 @@ import VueClipboard from 'vue-clipboard2'
 // 插件 json 展示
 import vueJsonTreeView from 'vue-json-tree-view'
 
+Vue.use(VueMoment)
 
 Vue.use(router)
 
@@ -62,3 +64,9 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
+
+import VueKindEditor from 'vue-kindeditor'
+import 'kindeditor/kindeditor-all-min.js'
+import 'kindeditor/themes/default/default.css'
+import 'kindeditor/lang/zh-CN.js'
+Vue.use(VueKindEditor)

@@ -4,6 +4,13 @@
       <el-button icon='el-icon-question'
                  type="primary"
                  @click="guide">运行引导页</el-button>
+
+      <editor id="editor_id" height="500px"
+
+              pluginsPath="/static/kindeditor/plugins/"
+              :loadStyleMode="false"
+              ></editor>
+
     </basic-container>
   </div>
 </template>

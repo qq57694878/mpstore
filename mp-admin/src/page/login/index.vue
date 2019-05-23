@@ -44,7 +44,7 @@
 import userLogin from "./userlogin";
 import codeLogin from "./codelogin";
 import thirdLogin from "./thirdlogin";
-import topColor from "../index/top/top-color";
+//import topColor from "../index/top/top-color";
 import color from "@/mixins/color";
 import { mapGetters } from "vuex";
 import { validatenull } from '@/util/validate'
@@ -52,7 +52,7 @@ export default {
   name: "login",
   mixins: [color()],
   components: {
-    topColor,
+//    topColor,
     userLogin,
     codeLogin,
     thirdLogin
