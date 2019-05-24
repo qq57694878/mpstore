@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Administrator on 2019/5/23 0023.
@@ -30,11 +34,20 @@ public class DownloadController {
         uri = uri.replace('\\','/');
         String  fileName = uri.substring(uri.lastIndexOf("/")+1);
         //设置response 参数
-        response.addHeader("Content-Disposition","attachment;filename=" + new String(fileName.getBytes(),"utf-8"));
-        InputStream is =  new FileInputStream(file);
+
+        String contentType =   Files.probeContentType(Paths.get(file.getPath()));
+        response.setContentType(contentType);
+        if(!isAllow(contentType)){
+            response.addHeader("Content-Disposition","attachment;filename=" + new String(fileName.getBytes(),"utf-8"));
+        }
+       InputStream is =  new FileInputStream(file);
         OutputStream os = response.getOutputStream();
         IOUtils.copy(is,os);
         is.close();
         os.close();
+    }
+    public boolean isAllow(String contentType ){
+        List<ContentType> array = Arrays.asList(new ContentType[]{ContentType.IMAGE_BMP,ContentType.IMAGE_GIF,ContentType.IMAGE_JPEG,ContentType.IMAGE_PNG,ContentType.IMAGE_TIFF,ContentType.IMAGE_WEBP});
+        return array.stream().anyMatch(item->item.toString().equals(contentType));
     }
 }
