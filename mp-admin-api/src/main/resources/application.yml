@@ -14,5 +14,6 @@ server:
     context-path: /
 
 mpstore:
+  service-url: http://localhost:${server.port}${server.servlet.context-path}
   file:
      upload-path: D:/upload
