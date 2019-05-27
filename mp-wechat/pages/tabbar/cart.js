@@ -1,11 +1,14 @@
-// pages/tabbar/cart.js
+let App = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    goods_list: [], // 商品列表
+    order_total_num: 0,
+    order_total_price: 0,
   },
 
   /**
@@ -16,51 +19,133 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getCartList();
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 获取购物车列表
    */
-  onHide: function () {
-
+  getCartList: function () {
+    let _this = this;
+    App._get('/cart/list', {}).then(function(result){
+      _this.setData(result.data);
+    }) 
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * 递增指定的商品数量
    */
-  onUnload: function () {
-
+  addCount: function (e) {
+    let _this = this,
+      index = e.currentTarget.dataset.index,
+      goodsSkuId = e.currentTarget.dataset.skuId,
+      goods = _this.data.goods_list[index],
+      order_total_price = _this.data.order_total_price;
+    // 后端同步更新
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    App._post('/cart/add', {
+      goods_id: goods.goods_id,
+      goods_num: 1,
+      goods_sku_id: goodsSkuId
+    }).then(function () {
+      wx.hideLoading();
+      goods.total_num++;
+      _this.setData({
+        ['goods_list[' + index + ']']: goods,
+        order_total_price: _this.mathadd(order_total_price, goods.goods_price)
+      });
+    });
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 递减指定的商品数量
    */
-  onPullDownRefresh: function () {
+  minusCount: function (e) {
+    let _this = this,
+      index = e.currentTarget.dataset.index,
+      goodsSkuId = e.currentTarget.dataset.skuId,
+      goods = _this.data.goods_list[index],
+      order_total_price = _this.data.order_total_price;
 
+    if (goods.total_num > 1) {
+      // 后端同步更新
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      App._post('/cart/sub', {
+        goods_id: goods.goods_id,
+        goods_sku_id: goodsSkuId
+      }).then(function () {
+        wx.hideLoading();
+        goods.total_num--;
+        goods.total_num > 0 &&
+          _this.setData({
+            ['goods_list[' + index + ']']: goods,
+            order_total_price: _this.mathsub(order_total_price, goods.goods_price)
+          });
+      });
+
+    }
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 删除商品
    */
-  onReachBottom: function () {
-
+  del: function (e) {
+    let _this = this,
+      goods_id = e.currentTarget.dataset.goodsId,
+      goodsSkuId = e.currentTarget.dataset.skuId;
+    wx.showModal({
+      title: "提示",
+      content: "您确定要移除当前商品吗?",
+      success: function (e) {
+        e.confirm && App._post('/cart/delete', {
+          goods_id,
+          goods_sku_id: goodsSkuId
+        }).then( function (result) {
+          _this.getCartList();
+        });
+      }
+    });
   },
 
   /**
-   * 用户点击右上角分享
+   * 购物车结算
    */
-  onShareAppMessage: function () {
+  submit: function (t) {
+    wx.navigateTo({
+      url: '../flow/checkout?order_type=cart'
+    });
+  },
 
-  }
+  /**
+   * 加法
+   */
+  mathadd: function (arg1, arg2) {
+    return (Number(arg1) + Number(arg2)).toFixed(2);
+  },
+
+  /**
+   * 减法
+   */
+  mathsub: function (arg1, arg2) {
+    return (Number(arg1) - Number(arg2)).toFixed(2);
+  },
+
+  /**
+   * 去购物
+   */
+  goShopping: function () {
+    wx.switchTab({
+      url: '../index/index',
+    });
+  },
+
 })
