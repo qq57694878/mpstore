@@ -8,7 +8,8 @@
     "pages/tabbar/my",
     "pages/order-list/order-list",
     "pages/order/list",
-    "pages/order/detail"
+    "pages/order/detail",
+    "pages/sku-detail/sku-detail"
   ],
   "tabBar": {
     "backgroundColor": "#ffffff",
