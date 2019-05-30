@@ -9,11 +9,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link rel="stylesheet" href="<%= BASE_URL %>css/amazeui.min.css">
+    <link rel="stylesheet" href="<%= BASE_URL %>css/app.css">
     <link rel="stylesheet" href="<%= BASE_URL %>cdn/element-ui/2.4.7/theme-chalk/index.css">
     <link rel="stylesheet" href="<%= BASE_URL %>cdn/animate/3.5.2/animate.css">
     <link rel="stylesheet" href="<%= BASE_URL %>cdn/iconfont/1.0.0/index.css">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Avue 通用管理 系统快速开发框架</title>
+    <title>小程序admin管理系统</title>
     <style>
         html,
         body,
@@ -75,7 +77,7 @@
 <body>
     <noscript>
       <strong>
-        很抱歉，如果没有 JavaScript 支持，Avue-cli 将不能正常工作。请启用浏览器的 JavaScript 然后继续。
+        很抱歉，如果没有 JavaScript 支持，系统 将不能正常工作。请启用浏览器的 JavaScript 然后继续。
       </strong>
   </noscript>
     <div id="app">
@@ -89,13 +91,11 @@
                     初次加载资源可能需要较多时间 请耐心等待
                 </div>
             </div>
-            <div class="avue-home__footer">
-                <a href="https://gitee.com/smallweigit/avue" target="_blank">
-                https://gitee.com/smallweigit/avue </a>
-            </div>
         </div>
     </div>
     <!-- built files will be auto injected -->
+    <script src="<%= BASE_URL %>js/jquery.min.js"></script>
+    <script src="<%= BASE_URL %>js/amazeui.min.js"></script>
     <script src="<%= BASE_URL %>util/aes.js" charset="utf-8"></script>
     <script src="<%= BASE_URL %>cdn/vue/2.5.2/vue.min.js" charset="utf-8"></script>
     <script src="<%= BASE_URL %>cdn/vuex/2.4.1/vuex.min.js" charset="utf-8"></script>

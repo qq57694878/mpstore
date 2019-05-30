@@ -11,7 +11,16 @@ import Mock from 'mockjs'
  * children子类菜单数组
  * group配置其他路由激活菜单高亮
  */
-const first = [{
+const first = [
+    {
+        id: 66,
+        label: "订单管理",
+        path: '/order',
+        component: 'views/order/index',
+        icon: 'icon-canshu',
+        children: [],
+    },
+    {
     id: 33,
     label: "引导页",
     path: '/guide',
