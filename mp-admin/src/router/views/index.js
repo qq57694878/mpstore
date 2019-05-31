@@ -38,4 +38,17 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "utils" */ '@/views/advanced-router/argument-detail')
     }]
-}, ]
+},
+    {
+        path: '/order',
+        component: Layout,
+        children: [{
+            path: "detail/:id",
+            name: '订单详情',
+            component: () =>
+                import ( /* webpackChunkName: "page" */ '@/views/order/detail'),
+            props: true
+        }]
+
+    },
+]

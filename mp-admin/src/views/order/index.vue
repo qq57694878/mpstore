@@ -4,7 +4,7 @@
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-cf">{{ title }}</div>
+                        <div class="widget-title am-cf">订单列表</div>
                     </div>
                     <div class="widget-body am-fr">
                         <div class="order-list am-scrollable-horizontal am-u-sm-12 am-margin-top-xs">
@@ -12,9 +12,8 @@
                         am-text-nowrap am-margin-bottom-xs">
                                 <thead>
                                 <tr>
-                                    <th width="30%" class="goods-detail">商品信息</th>
-                                    <th width="10%">单价/数量</th>
-                                    <th width="15%">实付款</th>
+                                    <th width="40%" class="goods-detail">商品信息</th>
+                                    <th width="15%">金额</th>
                                     <th>买家</th>
                                     <th>交易状态</th>
                                     <th>操作</th>
@@ -22,61 +21,61 @@
                                 </thead>
                                 <tbody>
 
-                                <template  v-for="$order in orderList" v-bind:key="$order.order_no">
+                                <template v-for="item_order in orderList">
 
-                                <tr class="order-empty">
-                                    <td colspan="6"></td>
-                                </tr>
-                                <tr>
-                                    <td class="am-text-middle am-text-left" colspan="6">
-                                        <span class="am-margin-right-lg"> {{ $order.create_time}}</span>
-                                        <span class="am-margin-right-lg">订单号：{{ $order.order_no}}</span>
-                                    </td>
-                                </tr>
+                                    <tr class="order-empty">
+                                        <td colspan="6"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="am-text-middle am-text-left" colspan="6">
+                                            <span class="am-margin-right-lg"> {{ item_order.create_time}}</span>
+                                            <span class="am-margin-right-lg">订单号：{{ item_order.order_no}}</span>
+                                        </td>
+                                    </tr>
 
 
-                                <tr v-for="{$goods,$i} in $order['goods']" v-bind:key="$goods.goods-id">
-                                    <td class="goods-detail am-text-middle">
-                                        <div class="goods-image">
-                                            <img :src="$goods['image']['file_path']" alt="">
-                                        </div>
-                                        <div class="goods-info">
-                                            <p class="goods-title">{{ $goods['goods_name'] }}</p>
-                                            <p class="goods-spec am-link-muted">
-                                                {{ $goods['goods_attr'] }}
+                                    <tr v-for="(item_goods,i) in item_order['goods']">
+
+                                        <td class="goods-detail am-text-middle">
+                                            <div class="goods-image">
+                                                <img :src="item_goods['image_url']" alt="">
+                                            </div>
+                                            <div class="goods-info">
+                                                <p class="goods-title">{{ item_goods['goods_name'] }}</p>
+                                                <p>￥{{ item_goods['goods_price'] }} ×{{ item_goods['total_num'] }}</p>
+                                            </div>
+                                        </td>
+
+                                    <template v-if="i==0">
+                                        <td class="am-text-middle" :rowspan="item_order['goods'].length">
+                                            <p>实付款：￥{{ item_order['pay_price'] }}</p>
+                                            <p class="am-link-muted">(订单金额：￥{{ item_order['total_price'] }})</p>
+                                        </td>
+                                        <td class="am-text-middle" :rowspan="item_order['goods'].length">
+                                            <p>{{item_order['user']['nickName']}}</p>
+                                            <p class="am-link-muted">(用户id：{{item_order['user']['user_id']}})</p>
+                                        </td>
+                                        <td class="am-text-middle" :rowspan="item_order['goods'].length">
+                                            <p>付款状态：
+                                                <span class="am-badge"
+                                                      v-bind:class="[item_order.pay_status=='20' ? 'am-badge-success' : '']">
+                                                        {{ item_order.pay_status }}</span>
                                             </p>
-                                        </div>
-                                    </td>
-                                    <td class="am-text-middle">
-                                        <p>￥{{ $goods['goods_price'] }}</p>
-                                        <p>×{{ $goods['total_num'] }}</p>
-                                    </td>
-                                    <?php if ($i === 1) : $goodsCount = count($order['goods']); ?>
-                                    <td class="am-text-middle" :rowspan="$order['goods'].length">
-                                        <p>￥<?= $order['pay_price'] ?></p>
-                                        <p class="am-link-muted">(含运费：￥<?= $order['express_price'] ?>)</p>
-                                    </td>
-                                    <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
-                                        <p><?= $order['user']['nickName'] ?></p>
-                                        <p class="am-link-muted">(用户id：<?= $order['user']['user_id'] ?>)</p>
-                                    </td>
-                                    <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
-                                        <p>付款状态：
-                                            <span class="am-badge" v-bind:class="[$order.pay_status=='20' ? 'am-badge-success' : '']" >
-                                                        {{ $order.pay_status }}</span>
-                                        </p>
+                                        </td>
+                                        <td class="am-text-middle" :rowspan="item_order['goods'].length">
+                                            <div class="tpl-table-black-operation">
+                                                <router-link class="tpl-table-black-operation-green" :to="{path:`/advanced-router/mutative-detail/${scope.row.id}`,query:{name:`${scope.row.name}动态路由详情`}}">
+                                                    订单详情
+                                                </router-link>
 
-                                    </td>
-                                    <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
-                                        <div class="tpl-table-black-operation">
-                                            <a class="tpl-table-black-operation-green"
-                                               :href="">
-                                                订单详情</a>
+                                            </div>
+                                        </td>
+                                    </template>
 
-                                        </div>
-                                    </td>
-                                    <?php endif; ?>
-                                </tr>
+
+                                    </tr>
+
+
                                 </template>
 
                                 <tr v-if="orderList.length==0">
@@ -87,7 +86,7 @@
                             </table>
                         </div>
                         <div class="am-u-lg-12 am-cf">
-                            <div class="am-fr">  </div>
+                            <div class="am-fr"></div>
                             <div class="am-fr pagination-total am-margin-right">
                                 <div class="am-vertical-align-middle">总记录：{{ orderList.length }}</div>
                             </div>
@@ -100,40 +99,90 @@
 </template>
 
 <script>
-    import { mapGetters } from "vuex";
+    import {mapGetters} from "vuex";
+
     export default {
-        name: "role",
+        name: "order",
         components: {},
-        data () {
+        data() {
             return {
-                tableOption: {}, //表格设置属性
-                tableData: [], //表格的数据
-                tablePage: 1,
-                tableLoading: false,
-                tabelObj: {},
+
                 page: {
                     total: 0, //总页数
                     currentPage: 1, //当前页数
                     pageSize: 10 //每页显示多少条
                 },
-                grade: {
-                    box: false,
-                    check: []
-                }
+                orderList: [
+                    {
+                        order_no: "111",
+                        create_time: "2018-09-01 01:01:01",
+                        total_price: 100,
+                        pay_price: 100,
+                        pay_status: 20,
+                        user: {
+                            user_id: 11111,
+                            nickName: "这里风很大"
+                        },
+                        goods: [
+                            {
+                                goods_id: 1,
+                                goods_price: 10,
+                                goods_name: "机油",
+                                total_num: 5,
+                                image_url: "http://www.kulongtai.com/1.jpg",
+                            },
+                            {
+                                goods_id: 2,
+                                goods_price: 1000,
+                                goods_name: "保养套餐",
+                                total_num: 5,
+                                image_url: "http://www.kulongtai.com/2.jpg",
+                            }
+
+                        ]
+
+                    },
+                    {
+                        order_no: "222",
+                        create_time: "2018-09-01 01:01:01",
+                        total_price: 100,
+                        pay_price: 100,
+                        pay_status: 20,
+                        user: {
+                            user_id: 11111,
+                            nickName: "这里风很大"
+                        },
+                        goods: [
+                            {
+                                goods_id: 1,
+                                goods_price: 10,
+                                goods_name: "机油",
+                                total_num: 5,
+                                image_url: "http://www.kulongtai.com/1.jpg",
+                            },
+                            {
+                                goods_id: 2,
+                                goods_price: 1000,
+                                goods_name: "保养套餐",
+                                total_num: 5,
+                                image_url: "http://www.kulongtai.com/2.jpg",
+                            }
+
+                        ]
+
+                    }
+                ]
             };
         },
-        created () {
+        created() {
 
         },
         watch: {},
-        mounted () { },
-        computed: {
-
+        mounted() {
         },
+        computed: {},
         props: [],
-        methods: {
-
-        }
+        methods: {}
     };
 </script>
 
