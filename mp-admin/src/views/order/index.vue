@@ -64,10 +64,9 @@
                                         </td>
                                         <td class="am-text-middle" :rowspan="item_order['goods'].length">
                                             <div class="tpl-table-black-operation">
-                                                <router-link class="tpl-table-black-operation-green" :to="{path:`/advanced-router/mutative-detail/${scope.row.id}`,query:{name:`${scope.row.name}动态路由详情`}}">
+                                                <router-link class="tpl-table-black-operation-green" :to="{path:`/order/detail/${item_order['order_no']}`,query:{order_no:`111`}}">
                                                     订单详情
                                                 </router-link>
-
                                             </div>
                                         </td>
                                     </template>
