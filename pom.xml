@@ -16,6 +16,8 @@
 		<module>mp-admin-api</module>
 		<module>mp-api</module>
 		<module>mp-admin</module>
+		<module>mp-test</module>
+		<module>mp-wechat</module>
 	</modules>
 
 </project>
