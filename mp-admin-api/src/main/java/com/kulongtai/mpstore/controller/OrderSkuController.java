@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 微信用户表 前端控制器
+ * 订单商品表 前端控制器
  * </p>
  *
  * @author lijinliang
- * @since 2019-05-25
+ * @since 2019-06-02
  */
 @RestController
-@RequestMapping("/mp-user")
-public class MpUserController {
+@RequestMapping("/order-sku")
+public class OrderSkuController {
 
 }

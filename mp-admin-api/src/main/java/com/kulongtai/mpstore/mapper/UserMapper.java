@@ -1,6 +1,6 @@
 package com.kulongtai.mpstore.mapper;
 
-import com.kulongtai.mpstore.entity.MpUser;
+import com.kulongtai.mpstore.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lijinliang
- * @since 2019-05-25
+ * @since 2019-06-02
  */
-public interface MpUserMapper extends BaseMapper<MpUser> {
+public interface UserMapper extends BaseMapper<User> {
 
 }

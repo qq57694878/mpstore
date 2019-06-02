@@ -34,37 +34,54 @@
   </view>
 
   <view class='h-contents'>
-    <view class='a-item'>
-      <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        积分:
-        <view style='padding:0 10rpx;color: #69C3AA;font-weight: bold;'> {{score}} </view>
+    <!-- 订单导航栏 -->
+    <view class="order-navbar">
+
+      <view class="order-navbar-footer dis-flex ">
+
+        <view class="order-navbar-item flex-box">
+          <form bindsubmit="onTargetOrder" data-type="unpay"  report-submit="true ">
+            <button formType="submit " class="btn-normal ">
+              <text class="order-navbar__icon iconfont icon-daifukuan "></text>
+              <text class="order-navbar__name ">待付款</text>
+              <text class="order-badge " wx:if="{{orderCount.payment> 0}}">{{orderCount.payment}}</text>
+            </button>
+          </form>
+        </view>
+        <view class="order-navbar-item flex-box">
+          <form bindsubmit="onTargetOrder" data-type="payed" report-submit="true">
+            <button formType="submit" class="btn-normal">
+              <text class="order-navbar__icon iconfont icon-daishouhuo"></text>
+              <text class="order-navbar__name">已付款</text>
+              <text class="order-badge" wx:if="{{orderCount.received > 0}}">{{orderCount.received}}</text>
+            </button>
+          </form>
+        </view>
+        <view class="order-navbar-item flex-box">
+          <form bindsubmit="onTargetOrder" data-type="cancel" report-submit="true">
+            <button formType="submit" class="btn-normal">
+              <text class="order-navbar__icon iconfont icon-daishouhuo"></text>
+              <text class="order-navbar__name">已取消</text>
+              <text class="order-badge" wx:if="{{orderCount.received > 0}}">{{orderCount.received}}</text>
+            </button>
+          </form>
+        </view>
+        <view class="order-navbar-item flex-box" style="border-left:1px solid #ccc">
+          <form bindsubmit="onTargetOrder" data-type="all" report-submit="true">
+            <button formType="submit" class="btn-normal">
+              <text class="order-navbar__icon iconfont icon-form" style="color:red"></text>
+              <text class="order-navbar__name">我的订单</text>
+            </button>
+          </form>
+        </view>
+
       </view>
-    </view>
-    <view class='a-item'>
-      <wxc-icon type='yen' size='{{iconSize-10}}' color='#666666' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        余额:
-        <view style='padding: 0 10rpx;color: #666666;font-weight: bold;'> {{balance}} </view>
-      </view>
-    </view>
-    <view class='a-item'>
-      <wxc-icon type='after-sales' size='{{iconSize-10}}' color='#FF5777' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        提现中:
-        <view style='padding: 0 10rpx;color: #FF5777;font-weight: bold;'> {{freeze}} </view>
-      </view>
-    </view>
-    <view class='a-item-no-right-border'>
-      <wxc-button type="info" size="small" value="充值" bindclick="recharge"></wxc-button>
-      <view style='height:8rpx;'> </view>
-      <wxc-button type="beauty" size="small" value="提现" bindclick="withdraw"></wxc-button>
     </view>
   </view>
 
   <view class="user-menu">
     <view class="item">
-      <navigator url="/pages/order-list/order-list" hover-class="none" class="a">
+      <navigator url="/pages/order/list" hover-class="none" class="a">
         <wxc-icon type='feedback' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
         <text class="txt">订单管理</text>
       </navigator>
@@ -118,5 +135,5 @@
       </navigator>
     </view>
   </view>
-  
+
 </view>

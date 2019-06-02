@@ -1,3 +1,6 @@
+.my-wrap{
+  padding:20rpx;
+}
 .my-codes-text {
   text-align:center;
   color: #333;

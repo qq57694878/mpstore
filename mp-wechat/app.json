@@ -1,6 +1,6 @@
 {
   "pages": [
-        "pages/cardcode/cardcode",
+        
     "pages/tabbar/home",
     "pages/tabbar/catalog",
     "pages/tabbar/cart",
@@ -10,7 +10,8 @@
     "pages/order-list/order-list",
     "pages/order/list",
     "pages/order/detail",
-    "pages/sku-detail/sku-detail"
+    "pages/sku-detail/sku-detail",
+    "pages/cardcode/cardcode"
 
   ],
   "tabBar": {

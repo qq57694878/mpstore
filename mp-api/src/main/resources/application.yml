@@ -2,11 +2,21 @@
 spring:
   datasource:
           name: test
-          url: jdbc:mysql://182.61.166.15:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
+          #url: jdbc:mysql://182.61.166.15:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
+          url: jdbc:mysql://localhost:3306/mpstore?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
           username: mytest
           password: mytest
           driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8888
 jwt:
-  secret:
+  header: Authorization
+  secret: mpstore
+  expiration: 604800
+
+logging:
+  level:
+    root: debug
+    org.springframework.web: debug
+    org.hibernate: error
+    com.julong.cloud: debug

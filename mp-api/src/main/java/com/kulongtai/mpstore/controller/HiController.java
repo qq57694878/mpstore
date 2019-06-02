@@ -1,5 +1,6 @@
 package com.kulongtai.mpstore.controller;
 
+import com.kulongtai.mpstore.common.annotation.IgnoreUserToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class HiController {
-    @GetMapping("/hello")
+    @GetMapping("/public/hello")
     public String hello(){
         return "hello";
+    }
+    @IgnoreUserToken
+    @GetMapping("/hi")
+    public String hi(){
+        return "hi";
+    }
+    @GetMapping("/ha")
+    public String ha(){
+        return "ha";
     }
 }

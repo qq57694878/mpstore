@@ -1,10 +1,10 @@
 spring:
   datasource:
-          name: test
+          name: mpstore
           # url: jdbc:mysql://182.61.166.15:3306/test?useUnicode=true&characterEncoding=UTF8
-          url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
-          username: mytest
-          password: mytest
+          url: jdbc:mysql://localhost:3306/mpstore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          username: db_mpstore
+          password: db_mpstore
           driver-class-name: com.mysql.cj.jdbc.Driver
 
 
@@ -17,3 +17,14 @@ mpstore:
   service-url: http://localhost:${server.port}${server.servlet.context-path}
   file:
      upload-path: D:/upload
+jwt:
+  header: Authorization
+  secret: mpstore
+  expiration: 604800
+
+logging:
+  level:
+    root: debug
+    org.springframework.web: debug
+    org.hibernate: error
+    com.julong.cloud: debug

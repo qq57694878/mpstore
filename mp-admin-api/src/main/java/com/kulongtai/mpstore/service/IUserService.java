@@ -1,6 +1,6 @@
 package com.kulongtai.mpstore.service;
 
-import com.kulongtai.mpstore.entity.MpUser;
+import com.kulongtai.mpstore.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author lijinliang
- * @since 2019-05-25
+ * @since 2019-06-02
  */
-public interface IMpUserService extends IService<MpUser> {
+public interface IUserService extends IService<User> {
 
 }

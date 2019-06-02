@@ -12,7 +12,7 @@ page {
   display: flex;
 	flex-direction: column;
   width: 100%;
-  height: 300rpx;
+  height: 260rpx;
   align-items: center;
   justify-content: center;
 }
@@ -21,7 +21,6 @@ page {
 	flex-direction: column;
   width: 750rpx;
   z-index: 100;
-  margin-top: 10rpx;
 	align-items: center;
   justify-content: center;
 }
@@ -67,7 +66,7 @@ page {
 
 .userbox .userInfoMask{
   width: 100%;
-  height: 350rpx;
+  height: 310rpx;
   z-index: 1;
   position: relative;
   bottom: 0rpx;
@@ -102,10 +101,71 @@ page {
   font-size: 24rpx;
 }
 
+
+/* 订单导航栏 */
+
+.order-navbar {
+
+  margin: auto;
+  padding: 15rpx 0;
+  width: 95%;
+  box-shadow: 0 1rpx 5rpx 0px rgba(0, 0, 0, 0.05);
+  font-size: 30rpx;
+  border-top: 1rpx solid #eee;
+  border-radius: 5rpx;
+  background: #fff;
+}
+
+.order-navbar-header {
+  margin: auto;
+  padding-bottom: 10rpx;
+  width: 91%;
+  height: 70rpx;
+  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-navbar-footer {
+  width: 100%;
+  padding: 10rpx 0px;
+}
+
+.order-navbar-footer .order-navbar-item .order-navbar__icon {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  padding: 10rpx 0;
+  color: #000;
+  font-size: 36rpx;
+}
+
+.order-navbar-footer .order-navbar-item .order-navbar__name {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+  margin-right: 10rpx;
+}
+
+.order-navbar-footer .order-navbar-item .order-badge {
+  position: absolute;
+  top: 0;
+  right: 55rpx;
+  font-size: 22rpx;
+  background: #ff495e;
+  text-align: center;
+  line-height: 28rpx;
+  color: #fff;
+  border-radius: 100%;
+  min-height: 30rpx;
+  min-width: 30rpx;
+  padding: 1rpx;
+}
+
 .h-contents{
   z-index: 100;
   width: 100%;
-  height: 125rpx;
   margin-bottom: 20rpx;
   background-color: #FFF;
   display: flex;

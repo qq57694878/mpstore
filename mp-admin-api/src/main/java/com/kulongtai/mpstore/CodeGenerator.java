@@ -1,5 +1,6 @@
 package com.kulongtai.mpstore;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -46,15 +47,16 @@ public class CodeGenerator {
         gc.setAuthor("lijinliang");
         gc.setOpen(false);
         gc.setSwagger2(true);
-        gc.setFileOverride(true);
+      //  gc.setFileOverride(true);//TODO
         gc.setActiveRecord(true);
         gc.setBaseColumnList(true);
         gc.setBaseResultMap(true);
+        gc.setIdType(IdType.AUTO);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://182.61.166.15:3306/mpstore?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/mpstore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("db_mpstore");
@@ -124,9 +126,13 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setSuperEntityColumns("id");
+        //strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("mp_");
+        strategy.setEntitySerialVersionUID(true);
+        strategy.setEntityTableFieldAnnotationEnable(true);
+
+        //strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
