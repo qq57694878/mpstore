@@ -1,4 +1,5 @@
 import { validatenull } from './validate'
+export {type2options,type2options4query} from './codeTable'
 //表单序列化
 export const serialize = data => {
     let list = [];

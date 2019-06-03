@@ -40,7 +40,8 @@ public class WebMvcConfig {
                         .excludePathPatterns("/**/*.html")
                         .excludePathPatterns("/static/*")
                         .excludePathPatterns("/public/*")
-                        .excludePathPatterns("/webjars/*");
+                        .excludePathPatterns("/webjars/*")
+                        .excludePathPatterns("/**/*");
             }
 
         };

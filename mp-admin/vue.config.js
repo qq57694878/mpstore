@@ -1,5 +1,5 @@
 // 基础路径 注意发布之前要先修改这里
-let baseUrl = 'http://localhost:8888'
+let baseUrl = 'http://localhost:9999'
 module.exports = {
     /*baseUrl: baseUrl, // 根据你的实际情况更改这里
     devServer: {
@@ -31,11 +31,11 @@ module.exports = {
     //配置转发代理
     devServer: {
         proxy: {
-            '/api': {
+            '/': {
                 target: baseUrl,
                 ws: true,
                 pathRewrite: {
-                    '^/api': '/api'
+                    '^/': '/'
                 }
             },
         }

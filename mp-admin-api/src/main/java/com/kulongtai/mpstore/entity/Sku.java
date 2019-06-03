@@ -8,6 +8,8 @@ package com.kulongtai.mpstore.entity;
     import java.time.LocalDateTime;
     import com.baomidou.mybatisplus.annotation.TableField;
     import java.io.Serializable;
+    import java.util.Date;
+
     import io.swagger.annotations.ApiModel;
     import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
@@ -93,11 +95,11 @@ package com.kulongtai.mpstore.entity;
 
             @ApiModelProperty(value = "创建时间")
         @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
             @ApiModelProperty(value = "修改时间")
         @TableField("update_time")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 
     @Override

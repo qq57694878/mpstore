@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class PageDto implements Serializable {
     @ApiModelProperty(value = "当前页数")
-    private long current;
+    private long current=1;
     @ApiModelProperty(value = "每页记录数")
-    private long size;
+    private long size=10;
 }

@@ -13,11 +13,35 @@ import Mock from 'mockjs'
  */
 const first = [
     {
+        id: 67,
+        label: "商品管理",
+        path: '/sku',
+        component: 'views/sku/index',
+        icon: 'icon-shangpin1',
+        children: [],
+    },
+    {
         id: 66,
         label: "订单管理",
         path: '/order',
         component: 'views/order/index',
-        icon: 'icon-canshu',
+        icon: 'icon-order_icon',
+        children: [],
+    },
+    {
+        id: 68,
+        label: "用户管理",
+        path: '/user',
+        component: 'views/user/index',
+        icon: 'icon-yonghu',
+        children: [],
+    },
+    {
+        id: 69,
+        label: "小程序管理",
+        path: '/wxmp',
+        component: 'views/wxmp/index',
+        icon: 'icon-xiaochengxu',
         children: [],
     },
     {

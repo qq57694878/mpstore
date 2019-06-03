@@ -1,3 +1,5 @@
+export {code2value} from '../util/codeTable'
+
 function pluralize(time, label) {
     if (time === 1) {
         return time + label
