@@ -7,7 +7,7 @@
                         <div class="widget-title am-cf">出售中的商品</div>
                     </div>
                     <div class="widget-body am-fr">
-                        <div class="am-u-sm-12 am-u-md-4 am-u-lg-4">
+                        <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                             <div class="am-form-group">
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
@@ -19,25 +19,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="am-u-sm-12 am-u-md-8 am-u-lg-8">
-                            <div class="am-u-sm-12 am-u-md-3">
-                                <div class="am-form-group">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option  value="">所有状态</option>
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am fr">
+                                <div class="am-form-group am-fl">
+                                    <select v-model="query.skuStatus"  >
+                                        <option value="">所有状态</option>
                                         <option v-for="item in skuStatusOptions" :value="item.value">{{item.label}}</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="am-u-sm-12 am-u-md-3">
-                                <div class="am-form-group">
-                                    <input type="text" class="am-form-field" :value="query.skuName">
-                                    <span class="am-input-group-btn">
-                                         <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
-                                     </span>
+                                <div class="am-form-group am-fl">
+                                    <div class="am-input-group am-input-group-sm tpl-form-border-form">
+                                        <input v-model="query.skuName" placeholder="请输入商品名称"></input>
+                                        <div class="am-input-group-btn">
+                                            <button class="am-btn am-btn-default am-icon-search" type="submit" @click="doQuery"></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="am-scrollable-horizontal am-u-sm-12">
                             <table width="100%" class="am-table am-table-compact am-table-striped
                          tpl-table-black am-text-nowrap" v-loading="loading">
@@ -124,37 +124,37 @@
     export default {
         data() {
             return {
-                skuStatusOptions:type2options("sku_status"),
+                skuStatusOptions: type2options("sku_status"),
                 loading: false,
                 msg: 'hello vue',
                 query: {
                     current: 1,
                     size: 10,
-                    skuName:"",
-                    skuStatus:""
+                    skuName: "",
+                    skuStatus: ""
                 },
                 total: 0,
-                skuList:[],
-             /*   skuList: [
-                    {
-                        skuName: "保养机油套餐",
-                        createTime: new Date().getTime(),
-                        skuStatus: "1",
-                        salesNum: 100,
-                        sort: 1,
-                        skuId: 100001,
-                        mainUrl: "http://www.kulongtai.com/1.jpg"
-                    },
-                    {
-                        skuName: "保养机油套餐1",
-                        createTime: new Date().getTime(),
-                        skuStatus: "2",
-                        salesNum: 101,
-                        sort: 2,
-                        skuId: 100002,
-                        mainUrl: "http://www.kulongtai.com/2.jpg"
-                    }
-                ]*/
+                skuList: [],
+                /*   skuList: [
+                 {
+                 skuName: "保养机油套餐",
+                 createTime: new Date().getTime(),
+                 skuStatus: "1",
+                 salesNum: 100,
+                 sort: 1,
+                 skuId: 100001,
+                 mainUrl: "http://www.kulongtai.com/1.jpg"
+                 },
+                 {
+                 skuName: "保养机油套餐1",
+                 createTime: new Date().getTime(),
+                 skuStatus: "2",
+                 salesNum: 101,
+                 sort: 2,
+                 skuId: 100002,
+                 mainUrl: "http://www.kulongtai.com/2.jpg"
+                 }
+                 ]*/
             }
         },
         created() {
@@ -162,13 +162,16 @@
         },
         components: {},
         methods: {
+            doQuery(){
+                this.handleList();
+            },
             handleSizeChange(val) {
-                this.page.size = val;
+                this.query.size = val;
                 console.log(`每页 ${val} 条`);
                 this.handleList();
             },
             handleCurrentChange(val) {
-                this.page.current = val;
+                this.query.current = val;
                 console.log(`当前页: ${val}`);
                 this.handleList();
             },
