@@ -31,11 +31,11 @@ module.exports = {
     //配置转发代理
     devServer: {
         proxy: {
-            '/': {
+            '/api': {
                 target: baseUrl,
-                ws: true,
+                ws: false,
                 pathRewrite: {
-                    '^/': '/'
+                    '^/api': '/api'
                 }
             },
         }

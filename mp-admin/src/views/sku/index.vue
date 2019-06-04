@@ -21,7 +21,7 @@
                         </div>
                         <div class="am-scrollable-horizontal am-u-sm-12">
                             <table width="100%" class="am-table am-table-compact am-table-striped
-                         tpl-table-black am-text-nowrap">
+                         tpl-table-black am-text-nowrap" v-loading="loading">
                                 <thead>
                                 <tr>
                                     <th>商品ID</th>
@@ -88,9 +88,7 @@
                                         :total="total">
                                 </el-pagination>
                         </div>
-                            <div class="am-fr pagination-total am-margin-right">
-                                <div class="am-vertical-align-middle">总记录：{{ skuList.length }}</div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -106,6 +104,7 @@ import {getSkuList} from '@/api/sku'
     export default{
         data(){
             return {
+                loading:false,
                 msg: 'hello vue',
                 page:{
                   current:1,
@@ -155,12 +154,15 @@ import {getSkuList} from '@/api/sku'
              *
              **/
             handleList () {
+                console.log(this.page);
+                this.loading=true;
                 getSkuList(this.page)
                     .then(res => {
                         const data = res.data.data;
                         setTimeout(() => {
                             this.skuList = data.records;
                             this.total = data.total;
+                            this.loading=false;
                         }, 1000);
                     });
             }

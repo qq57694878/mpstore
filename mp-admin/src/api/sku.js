@@ -1,6 +1,6 @@
 import request from '@/router/axios';
 export const getSkuList = (page) => request({
-    url: '/sku/getSkuList',
+    url: '/api/sku/getSkuList',
     method: 'get',
-    data: { page }
+    params: page
 })
