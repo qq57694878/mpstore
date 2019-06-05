@@ -7,36 +7,45 @@
                         <div class="widget-title am-cf">出售中的商品</div>
                     </div>
                     <div class="widget-body am-fr">
-                        <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                            <div class="am-form-group">
-                                <div class="am-btn-toolbar">
-                                    <div class="am-btn-group am-btn-group-xs">
-                                        <a class="am-btn am-btn-default am-btn-success am-radius"
-                                           href="">
-                                            <span class="am-icon-plus"></span> 新增
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="am-u-sm-12 am-u-md-6">
-                            <div class="am fr">
-                                <div class="am-form-group am-fl">
-                                    <select v-model="query.skuStatus"  >
-                                        <option value="">所有状态</option>
-                                        <option v-for="item in skuStatusOptions" :value="item.value">{{item.label}}</option>
-                                    </select>
-                                </div>
-                                <div class="am-form-group am-fl">
-                                    <div class="am-input-group am-input-group-sm tpl-form-border-form">
-                                        <input v-model="query.skuName" placeholder="请输入商品名称"></input>
-                                        <div class="am-input-group-btn">
-                                            <button class="am-btn am-btn-default am-icon-search" type="submit" @click="doQuery"></button>
+                        <div class="page_toolbar am-margin-bottom-xs am-cf">
+                            <form class="toolbar-form" action="">
+                                <input type="hidden" name="s" value="/store/goods/index">
+                                <div class="am-u-sm-12 am-u-md-3">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <a class="am-btn am-btn-default am-btn-success" href="index.php?s=/store/goods/add">
+                                                <span class="am-icon-plus"></span> 新增
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="am-u-sm-12 am-u-md-9">
+                                    <div class="am fr">
+
+                                        <div class="am-form-group am-fl">
+                                            <el-select v-model="query.skuStatus" clearable placeholder="请选择商品状态">
+                                                <el-option
+                                                        v-for="item in skuStatusOptions"
+                                                        :key="item.value"
+                                                        :label="item.label"
+                                                        :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                        <div class="am-form-group am-fl">
+                                            <div class="am-input-group ">
+                                                <el-input v-model="query.skuName" placeholder="请输入商品名称"></el-input>
+                                                <div class="am-input-group-btn">
+                                                    <button class="am-btn am-btn-default am-icon-search" type="button" @click="doQuery"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+
+
 
                         <div class="am-scrollable-horizontal am-u-sm-12">
                             <table width="100%" class="am-table am-table-compact am-table-striped
