@@ -51,7 +51,7 @@ CREATE TABLE `mp_card_record` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户id',
   `before_used_price` decimal(10,2) DEFAULT NULL COMMENT '消费前余额',
   `used_price` decimal(10,2) DEFAULT NULL COMMENT '消费金额',
-  `agter_used_price` decimal(10,2) DEFAULT NULL COMMENT '消费后余额',
+  `after_used_price` decimal(10,2) DEFAULT NULL COMMENT '消费后余额',
   `buss_type` char(2) DEFAULT '1' COMMENT '业务分类（1服务2充值卡3商品4套餐）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)

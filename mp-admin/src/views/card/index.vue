@@ -4,7 +4,7 @@
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-cf">用户列表</div>
+                        <div class="widget-title am-cf">卡券管理</div>
                     </div>
                     <div class="page_toolbar am-margin-bottom-xs am-cf">
                         <div class="am-u-sm-12 am-u-md-12">
@@ -30,8 +30,23 @@
                                     </div>
                                 </div>
                                 <div class="am-form-group am-fl">
+                                    <el-select v-model="query.validFlag" clearable placeholder="请选择有效标记">
+                                        <el-option
+                                                v-for="item in validFlagOptions"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                                <div class="am-form-group am-fl">
                                     <div class="am-input-group ">
-                                        <el-input v-model="query.mobile" placeholder="请输入用户电话"></el-input>
+                                        <el-input v-model="query.orderNo" placeholder="请输入订单号"></el-input>
+                                    </div>
+                                </div>
+                                <div class="am-form-group am-fl">
+                                    <div class="am-input-group ">
+                                        <el-input v-model="query.cardNo" placeholder="请输入卡号"></el-input>
                                         <div class="am-input-group-btn">
                                             <button class="am-btn am-btn-default am-icon-search" type="button" @click="doQuery"></button>
                                         </div>
@@ -48,33 +63,35 @@
                          tpl-table-black am-text-nowrap" v-loading="loading">
                                 <thead>
                                 <tr>
-                                    <th>用户ID</th>
-                                    <th>微信头像</th>
-                                    <th>电话</th>
-                                    <th>微信昵称</th>
-                                    <th>性别</th>
-                                    <th>国家</th>
-                                    <th>省份</th>
-                                    <th>城市</th>
-                                    <th>注册时间</th>
+                                    <th>卡号</th>
+                                    <th>卡名</th>
+                                    <th>面值</th>
+                                    <th>余额<th>
+                                    <th>有效标记</th>
+                                    <th>所属用户id</th>
+                                    <th>所属订单编号</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr  v-for="userInfo in userList" :key="userInfo.userId">
-                                    <td class="am-text-middle">{{ userInfo['userId'] }}</td>
+                                <tr  v-for="cardInfo in cardList" :key="cardInfo.cardNo">
+                                    <td class="am-text-middle">{{ cardInfo['cardNo'] }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['cardName'] }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['facePrice'] }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['balancePrice']  }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['validFlag'] |code2value('valid_flag') }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['userId'] }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['orderNo']  }}</td>
+                                    <td class="am-text-middle">{{ cardInfo['createTime']|moment('YYYY-MM-DD HH:mm:ss') }}</td>
                                     <td class="am-text-middle">
-                                        <a :href="userInfo['avatar']" title="点击查看大图" target="_blank">
-                                            <img :src="userInfo['avatar']" width="72" height="72" alt="">
-                                        </a>
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;" @click="handleConsume(cardInfo.cardNo)" class="tpl-table-black-operation-green">
+                                                <i class="am-icon-trash"></i> 消费
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td class="am-text-middle">{{ userInfo['mobile'] }}</td>
-                                    <td class="am-text-middle">{{ userInfo['nickname'] }}</td>
-                                    <td class="am-text-middle">{{ userInfo['gender'] |code2value('gender') }}</td>
-                                    <td class="am-text-middle">{{ userInfo['country'] ?userInfo['country']: '--' }}</td>
-                                    <td class="am-text-middle">{{ userInfo['province'] ?userInfo['province']: '--' }}</td>
-                                    <td class="am-text-middle">{{ userInfo['city'] ?userInfo['city'] : '--' }}</td>
-                                    <td class="am-text-middle">{{ userInfo['createTime']|moment('YYYY-MM-DD HH:mm:ss') }}</td>
                                 </tr>
 
                                 <tr v-if="userList.length==0">
@@ -107,11 +124,12 @@
 
 </style>
 <script>
-    import {getUserList} from '@/api/wxuser'
+    import {getCardList} from '@/api/card'
     import {type2options,code2value} from '@/util/codeTable'
     export default {
         data() {
             return {
+                validFlagOptions:type2options('valid_flag'),
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -146,11 +164,13 @@
                     startTime:null,
                     endTime:null,
                     userId:"",
-                    mobile:"",
+                    cardNo:"",
+                    orderNo:"",
+                    validFlag:""
                 },
                 loading: false,
                 total: 0,
-                userList: [],
+                cardList: [],
 
             }
         },
@@ -159,15 +179,15 @@
         },
         components: {},
         watch:{
-          /*  queryDateRange:function(value){
-                if(value){
-                    this.query.startTime=value[0];
-                    this.query.endTime=value[1];
-                }else{
-                    this.query.startTime="";
-                    this.query.endTime="";
-                }
-            },*/
+            /*  queryDateRange:function(value){
+             if(value){
+             this.query.startTime=value[0];
+             this.query.endTime=value[1];
+             }else{
+             this.query.startTime="";
+             this.query.endTime="";
+             }
+             },*/
         },
         methods: {
             doQuery(){

@@ -57,8 +57,8 @@ package com.kulongtai.mpstore.entity;
     private BigDecimal usedPrice;
 
             @ApiModelProperty(value = "消费后余额")
-        @TableField("agter_used_price")
-    private BigDecimal agterUsedPrice;
+        @TableField("after_used_price")
+    private BigDecimal afterUsedPrice;
 
             @ApiModelProperty(value = "业务分类（1服务2充值卡3商品4套餐）")
         @TableField("buss_type")

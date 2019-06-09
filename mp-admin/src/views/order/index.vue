@@ -224,8 +224,13 @@
                 this.handleList();
             },
             changeDateRange:function(value){
-                this.queryForm.startTime=value[0];
-                this.queryForm.endTime=value[1];
+                if(value){
+                    this.queryForm.startTime=value[0];
+                    this.queryForm.endTime=value[1];
+                }else{
+                    this.queryForm.startTime="";
+                    this.queryForm.endTime="";
+                }
             },
             handleSizeChange(val) {
                 this.query.size = val;

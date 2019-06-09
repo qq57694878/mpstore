@@ -19,8 +19,8 @@ public class ExceptionHandle {
         logger.info("[系统异常] {}",e.getMessage());
         return new R(500,e.getMessage());
     }
-    @ExceptionHandler(BaseException.class)
-    public R baseExceptionHandler(HttpServletResponse response, BaseException ex) {
+    @ExceptionHandler(BusinessException.class)
+    public R baseExceptionHandler(HttpServletResponse response, BusinessException ex) {
         logger.error(ex.getMessage(),ex);
         return new R(ex.getStatus(), ex.getMessage());
     }

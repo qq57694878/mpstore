@@ -29,6 +29,14 @@ const first = [
         children: [],
     },
     {
+        id: 70,
+        label: "卡券管理",
+        path: '/card',
+        component: 'views/card/index',
+        icon: 'icon-wodeyouhuiquan',
+        children: [],
+    },
+    {
         id: 68,
         label: "用户管理",
         path: '/wxuser',

@@ -1,19 +1,20 @@
 package com.kulongtai.mpstore.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+    import java.math.BigDecimal;
+    import com.baomidou.mybatisplus.annotation.TableName;
+    import com.baomidou.mybatisplus.annotation.IdType;
+    import com.baomidou.mybatisplus.extension.activerecord.Model;
+    import com.baomidou.mybatisplus.annotation.TableId;
+    import java.time.LocalDateTime;
+    import com.baomidou.mybatisplus.annotation.TableField;
+    import java.io.Serializable;
+    import java.util.Date;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
+    import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModelProperty;
+    import lombok.Data;
+    import lombok.EqualsAndHashCode;
+    import lombok.experimental.Accessors;
 
 /**
 * <p>
@@ -21,7 +22,7 @@ import java.util.Date;
     * </p>
 *
 * @author lijinliang
-* @since 2019-06-02
+* @since 2019-06-09
 */
     @Data
         @EqualsAndHashCode(callSuper = false)
@@ -75,6 +76,18 @@ import java.util.Date;
             @ApiModelProperty(value = "业务分类（1服务2充值卡3商品4套餐）")
         @TableField("buss_type")
     private String bussType;
+
+            @ApiModelProperty(value = "订单商品id")
+        @TableField("order_sku_id")
+    private Integer orderSkuId;
+
+            @ApiModelProperty(value = "订单id")
+        @TableField("order_id")
+    private Integer orderId;
+
+    @ApiModelProperty(value = "订单编号")
+    @TableField("order_no")
+    private String orderNo;
 
             @ApiModelProperty(value = "创建时间")
         @TableField("create_time")
