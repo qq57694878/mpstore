@@ -1,10 +1,11 @@
 <template>
     <div class="row-content am-cf">
+
         <div class="row">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-cf">出售中的商品</div>
+                        <div class="widget-title am-cf">商品管理</div>
                     </div>
                     <div class="widget-body am-fr">
                         <div class="page_toolbar am-margin-bottom-xs am-cf">
@@ -13,9 +14,10 @@
                                 <div class="am-u-sm-12 am-u-md-3">
                                     <div class="am-form-group">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <a class="am-btn am-btn-default am-btn-success" href="index.php?s=/store/goods/add">
+                                            <router-link :to="{path:`/sku/add`}" class="am-btn am-btn-default am-btn-success">
                                                 <span class="am-icon-plus"></span> 新增
-                                            </a>
+                                            </router-link>
+
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +65,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="$item in skuList">
+                                <tr v-for="$item in skuList" :key="$item.skuId">
                                     <td class="am-text-middle">{{$item['skuId']}}</td>
                                     <td class="am-text-middle">
                                         <a :href="$item['main_url']"
@@ -87,12 +89,16 @@
                                     </td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a href="#">
+                                            <router-link :to="{path:`/sku/edit/${$item['skuId']}`,query:{skuName:`${$item['skuName']}`}}">
                                                 <i class="am-icon-pencil"></i> 编辑
-                                            </a>
-                                            <a href="javascript:;" class="item-delete tpl-table-black-operation-del">
+                                            </router-link>
+
+                                            <a href="javascript:;" @click="handleDelete($item['skuId'])" class="item-delete tpl-table-black-operation-del">
                                                 <i class="am-icon-trash"></i> 删除
                                             </a>
+                                            <router-link :to="{path:`/sku/add`,query:{skuId:`${$item['skuId']}`}}">
+                                                <i class="am-icon-copy"></i> 一键复制
+                                            </router-link>
                                         </div>
                                     </td>
                                 </tr>
@@ -116,7 +122,6 @@
                                         :total="total">
                                 </el-pagination>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -128,20 +133,19 @@
 
 </style>
 <script>
-    import {getSkuList} from '@/api/sku'
+    import {getSkuList,deleteSku} from '@/api/sku'
     import {type2options} from '@/util/codeTable'
     export default {
         data() {
             return {
                 skuStatusOptions: type2options("sku_status"),
-                loading: false,
-                msg: 'hello vue',
                 query: {
                     current: 1,
                     size: 10,
                     skuName: "",
                     skuStatus: ""
                 },
+                loading: false,
                 total: 0,
                 skuList: [],
                 /*   skuList: [
@@ -173,6 +177,34 @@
         methods: {
             doQuery(){
                 this.handleList();
+            },
+            handleDelete(id){
+                this.$confirm(`是否确认删除?`, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                }).then(() => {
+                    deleteSku(id).then(res =>{
+                        if(res.data.data){
+                            this.handleList();
+                    this.$notify({
+                        title:'成功',
+                        duration:2000,
+                        message: '删除成功',
+                        type: 'success',
+                    });
+                }else{
+                    this.$notify({
+                        title:'失败',
+                        duration:2000,
+                        message: '删除失败',
+                        type: 'error',
+                    });
+                }
+
+                });
+
+            }).catch(() => { });
             },
             handleSizeChange(val) {
                 this.query.size = val;

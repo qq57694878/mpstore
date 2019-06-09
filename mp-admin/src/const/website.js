@@ -33,5 +33,7 @@ export default {
             icon: 'icon',
             children: 'children'
         }
-    }
+    },
+    uploadImageUrl:'http://localhost:9999/api/upload',
+    uploadKindUrl:'http://localhost:9999/api/public/upload4kind'
 }

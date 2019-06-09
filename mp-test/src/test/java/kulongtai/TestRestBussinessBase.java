@@ -47,7 +47,7 @@ public class TestRestBussinessBase extends TestRestBase {
     public void init() throws Exception {
 
         super.init();
-        this.getToken();
+        //this.getToken();
         setUp();
     }
     public static void loadProperties(){

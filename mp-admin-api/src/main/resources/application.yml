@@ -6,12 +6,14 @@ spring:
           username: db_mpstore
           password: db_mpstore
           driver-class-name: com.mysql.cj.jdbc.Driver
-
-
+  jackson:
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: true
 server:
   port: 9999
   servlet:
-    context-path: /
+    context-path:
 
 mpstore:
   service-url: http://localhost:${server.port}${server.servlet.context-path}
@@ -28,3 +30,5 @@ logging:
     org.springframework.web: debug
     org.hibernate: error
     com.julong.cloud: debug
+mybatis-plus:
+ mapper-locations: classpath:/mapper/*Mapper.xml

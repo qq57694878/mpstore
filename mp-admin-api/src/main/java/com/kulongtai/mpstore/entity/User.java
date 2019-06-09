@@ -8,6 +8,8 @@ package com.kulongtai.mpstore.entity;
     import java.time.LocalDateTime;
     import com.baomidou.mybatisplus.annotation.TableField;
     import java.io.Serializable;
+    import java.util.Date;
+
     import io.swagger.annotations.ApiModel;
     import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
@@ -20,7 +22,7 @@ package com.kulongtai.mpstore.entity;
     * </p>
 *
 * @author lijinliang
-* @since 2019-06-02
+* @since 2019-06-09
 */
     @Data
         @EqualsAndHashCode(callSuper = false)
@@ -31,8 +33,8 @@ package com.kulongtai.mpstore.entity;
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+            @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
 
             @ApiModelProperty(value = "用户名称")
         @TableField("username")
@@ -48,15 +50,11 @@ package com.kulongtai.mpstore.entity;
 
             @ApiModelProperty(value = "生日")
         @TableField("birthday")
-    private LocalDate birthday;
+    private Date birthday;
 
             @ApiModelProperty(value = "最近一次登录时间")
         @TableField("last_login_time")
-    private LocalDateTime lastLoginTime;
-
-            @ApiModelProperty(value = "0 普通用户，1 VIP用户，2 高级VIP用户")
-        @TableField("user_level")
-    private Integer userLevel;
+    private Date lastLoginTime;
 
             @ApiModelProperty(value = "用户昵称或网络名称")
         @TableField("nickname")
@@ -71,8 +69,8 @@ package com.kulongtai.mpstore.entity;
     private String avatar;
 
             @ApiModelProperty(value = "微信登录openid")
-        @TableField("weixin_openid")
-    private String weixinOpenid;
+        @TableField("openid")
+    private String openid;
 
             @ApiModelProperty(value = "微信登录会话KEY")
         @TableField("session_key")
@@ -84,11 +82,11 @@ package com.kulongtai.mpstore.entity;
 
             @ApiModelProperty(value = "创建时间")
         @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
-            @ApiModelProperty(value = "更新时间")
+            @ApiModelProperty(value = "修改时间")
         @TableField("update_time")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
             @ApiModelProperty(value = "逻辑删除")
         @TableField("del_flag")
@@ -97,7 +95,7 @@ package com.kulongtai.mpstore.entity;
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 
 }

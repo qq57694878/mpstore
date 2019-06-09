@@ -5,7 +5,6 @@ package com.kulongtai.mpstore.entity;
     import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.extension.activerecord.Model;
     import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
     import com.baomidou.mybatisplus.annotation.TableField;
     import java.io.Serializable;
     import java.util.Date;

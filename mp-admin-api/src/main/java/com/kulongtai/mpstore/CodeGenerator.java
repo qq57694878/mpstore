@@ -47,7 +47,7 @@ public class CodeGenerator {
         gc.setAuthor("lijinliang");
         gc.setOpen(false);
         gc.setSwagger2(true);
-      //  gc.setFileOverride(true);//TODO
+        //gc.setFileOverride(true);//TODO
         gc.setActiveRecord(true);
         gc.setBaseColumnList(true);
         gc.setBaseResultMap(true);

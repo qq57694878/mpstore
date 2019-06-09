@@ -130,3 +130,12 @@ export function html2Text(val) {
 export function toThousandslsFilter(num) {
     return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
+//不加千分位
+export function formatMoney(num) {
+   // 返回的是字符串23245.12保留2位小数，可以补全第一位0，会显示0.00，但是千分位符不显示了。
+    return parseFloat(num).toFixed(2).toLocaleString();
+}
+//加千分位
+export function formatMoney3(num) {
+    return parseFloat(num).toFixed(2).toLocaleString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','));
+}

@@ -31,8 +31,8 @@ const first = [
     {
         id: 68,
         label: "用户管理",
-        path: '/user',
-        component: 'views/user/index',
+        path: '/wxuser',
+        component: 'views/wxuser/index',
         icon: 'icon-yonghu',
         children: [],
     },

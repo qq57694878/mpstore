@@ -74,12 +74,19 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="初始销量" prop="salesInit">
-                                <el-input type="number" v-model.number="skuForm.salesInit" class="tpl-form-input"></el-input>
-                            </el-form-item>
+
                             <el-form-item label="排序" prop="sort">
                                 <el-input type="number" v-model.number="skuForm.sort" class="tpl-form-input"></el-input>
                                 <small>数字越小越靠前</small>
+                            </el-form-item>
+                            <el-form-item label="初始销量" prop="salesInit">
+                                <el-input type="number" @change="changeSalesInit" v-model.number="skuForm.salesInit" class="tpl-form-input"></el-input>
+                            </el-form-item>
+                            <el-form-item label="销量" prop="salesNum">
+                                <el-input type="number" :readonly="true" v-model.number="skuForm.salesNum" class="tpl-form-input"></el-input>
+                            </el-form-item>
+                            <el-form-item label="创建时间" prop="createTime">
+                               {{skuForm.createTime | moment('YYYY-MM-DD HH:mm:ss')}}
                             </el-form-item>
 
                         </el-form>
@@ -108,18 +115,19 @@
 
 </style>
 <script>
-    import { getSku,insertSku} from '@/api/sku'
+    import { getSku,updateSku} from '@/api/sku'
     import {type2options} from '@/util/codeTable'
     import { mapGetters } from 'vuex'
     export default {
         created:function(){
-            let skuId= this.$route.query.skuId;
-            this.handleGetSku(skuId);
+            this.skuForm.skuId= this.$route.params.skuId;
+            this.handleGetSku();
         },
         data() {
             return {
                 skuStatusOptions: type2options("sku_status"),
                 skuForm: {
+                    skuId:this.$route.params.skuId,
                     skuName:"",
                     mainUrl:'',
                     skuContent:"",
@@ -131,6 +139,10 @@
                     sort:100,
                     skuStatus:"1",
                     bussType:"1",
+                    salesNum:0,
+                },
+                other:{
+                    minusNum:0
                 },
                 rules: {
                     skuName: [
@@ -159,13 +171,13 @@
             };
         },
         methods: {
-            handleGetSku:function(skuId){
-                getSku(skuId).then(res=>{
-                    var skuInfo = res.data.data;
-                    skuInfo.skuId="";
-                    delete skuInfo.skuId;
-                    this.skuForm= skuInfo;
-                    console.log(this.skuForm);
+            changeSalesInit:function(salesInit){
+                this.skuForm.salesNum = parseInt(salesInit)+this.other.minusNum;
+            },
+            handleGetSku:function(){
+                getSku(this.skuForm.skuId).then(res=>{
+                        this.skuForm=res.data.data;
+                        this.other.minusNum = parseInt(this.skuForm.salesNum)-parseInt(this.skuForm.salesInit)
                 });
             },
             onSkuContentChange:function(content){
@@ -175,7 +187,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
 
-                        insertSku(this.skuForm).then(res=>{
+                        updateSku(this.skuForm).then(res=>{
                             console.log(res);
                             if(res.data.data){
                                 this.$notify({

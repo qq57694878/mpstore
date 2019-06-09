@@ -16,7 +16,7 @@ export function code2value(code,type){
     let c = map.get(type)
     if(c){
         let subMap = new Map(c);
-        result = subMap.get(code);
+        result = subMap.get(code+"");
     }
     return result;
 }

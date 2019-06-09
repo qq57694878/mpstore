@@ -1,7 +1,10 @@
 package com.kulongtai.mpstore.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.kulongtai.mpstore.dto.OrderListDto;
 import com.kulongtai.mpstore.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kulongtai.mpstore.vo.OrderInfo;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOrderService extends IService<Order> {
 
+    IPage<OrderInfo> getOrderListByPage(OrderListDto orderListDto);
 }
