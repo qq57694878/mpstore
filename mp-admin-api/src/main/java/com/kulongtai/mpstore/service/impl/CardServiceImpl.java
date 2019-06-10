@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kulongtai.mpstore.common.exception.BusinessException;
 import com.kulongtai.mpstore.common.mp.sdk.*;
+import com.kulongtai.mpstore.dto.ConsumeECardDto;
+import com.kulongtai.mpstore.dto.ConsumeFrequencyCardDto;
 import com.kulongtai.mpstore.entity.Card;
 import com.kulongtai.mpstore.entity.CardRecord;
 import com.kulongtai.mpstore.entity.Config;
@@ -42,7 +44,9 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
     private CardRecordMapper cardRecordMapper;
     @Transactional
     @Override
-    public boolean consumeServiceCard(Integer cardNo) {
+    public boolean consumeFrequencyCard(ConsumeFrequencyCardDto consumeFrequencyCardDto){
+        Integer cardNo = consumeFrequencyCardDto.getCardNo();
+
        Card card =  this.getOne(Wrappers.<Card>query().eq("card_no",cardNo));
        if(card==null){
            throw new BusinessException("失败，不存在的卡号");
@@ -83,8 +87,10 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
     }
 
     @Override
-    public Object consumeECard(Integer cardNo, BigDecimal consumeMoney) {
-        Card card =  this.getOne(Wrappers.<Card>query().eq("card_no",cardNo));
+    public boolean consumeECard(ConsumeECardDto consumeECardDto){
+        Integer cardNo =consumeECardDto.getCardNo();
+        BigDecimal consumeMoney = consumeECardDto.getUsedPrice();
+        Card card =  this.getOne(Wrappers.<Card>query().eq("card_no",consumeECardDto.getCardNo()));
         if(card==null){
             throw new BusinessException("失败，不存在的卡号");
         }

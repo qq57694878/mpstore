@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-06-10
  */
 @RestController
-@RequestMapping("/order-sku")
+@RequestMapping("/api/order-sku")
 public class OrderSkuController {
 
 }

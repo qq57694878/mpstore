@@ -1,5 +1,7 @@
 package com.kulongtai.mpstore.service;
 
+import com.kulongtai.mpstore.dto.ConsumeECardDto;
+import com.kulongtai.mpstore.dto.ConsumeFrequencyCardDto;
 import com.kulongtai.mpstore.entity.Card;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,7 +17,8 @@ import java.math.BigDecimal;
  */
 public interface ICardService extends IService<Card> {
 
-    boolean consumeServiceCard(Integer cardNo);
 
-    Object consumeECard(Integer cardNo, BigDecimal consumeMoney);
+    boolean consumeECard(ConsumeECardDto consumeECardDto);
+
+    boolean consumeFrequencyCard(ConsumeFrequencyCardDto consumeFrequencyCardDto);
 }

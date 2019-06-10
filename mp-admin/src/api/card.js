@@ -5,7 +5,7 @@ export const getCardList = (page) => request({
     params: page
 })
 export const consumeServiceCard = (data) => request({
-    url: '/api/card/consumeServiceCard',
+    url: '/api/card/consumeFrequencyCard',
     method: 'post',
     data: data
 })

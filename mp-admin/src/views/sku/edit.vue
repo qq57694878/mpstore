@@ -48,7 +48,7 @@
                                 <el-input type="number" v-model.number="skuForm.linePrice" class="tpl-form-input"></el-input>
                             </el-form-item>
                             <el-form-item label="商品业务类型" prop="bussType">
-                                <el-select v-model="skuForm.bussType" >
+                                <el-select v-model="skuForm.bussType" @change="changeBussType">
                                     <el-option
                                             v-for="item in bussTypeOptions"
                                             :key="item.value"
@@ -194,6 +194,13 @@
             };
         },
         methods: {
+            changeBussType:function(val){
+                if(val=='1'){
+                    this.skuForm.facePrice="";
+                }else if(val =='2'){
+                    this.skuForm.frequency="";
+                }
+            },
             changeSalesInit:function(salesInit){
                 this.skuForm.salesNum = parseInt(salesInit)+this.other.minusNum;
             },

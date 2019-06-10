@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kulongtai.mpstore.common.R;
 import com.kulongtai.mpstore.dto.CardListDto;
+import com.kulongtai.mpstore.dto.ConsumeECardDto;
+import com.kulongtai.mpstore.dto.ConsumeFrequencyCardDto;
 import com.kulongtai.mpstore.dto.UserListDto;
 import com.kulongtai.mpstore.entity.Card;
 import com.kulongtai.mpstore.entity.User;
@@ -14,11 +16,7 @@ import com.kulongtai.mpstore.service.ICardService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
@@ -31,7 +29,7 @@ import java.math.BigDecimal;
  * @since 2019-06-09
  */
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/api/card")
 public class CardController {
     @Autowired
     private ICardService iCardService;
@@ -49,15 +47,15 @@ public class CardController {
         IPage<Card> cardList = iCardService.page(new Page<>(cardListDto.getCurrent(),cardListDto.getSize()),queryWrapper);
         return new R(cardList);
     }
-    @PostMapping("/consumeServiceCard")
+    @PostMapping("/consumeFrequencyCard")
     @ApiOperation(value="消费服务卡", notes="服务卡一次扣减所有金额并失效")
-    public R<Boolean> consumeServiceCard(Integer cardNo){
-        return new R( iCardService.consumeServiceCard(cardNo));
+    public R<Boolean> consumeFrequencyCard(@RequestBody ConsumeFrequencyCardDto consumeFrequencyCardDto){
+        return new R( iCardService.consumeFrequencyCard(consumeFrequencyCardDto));
     }
     @PostMapping("/consumeECard")
     @ApiOperation(value="消费E卡", notes="E卡，扣减金额")
-    public R<Boolean> consumeECard(Integer cardNo, BigDecimal consumeMoney){
-        return new R( iCardService.consumeECard(cardNo,consumeMoney));
+    public R<Boolean> consumeECard(@RequestBody ConsumeECardDto consumeECardDto){
+        return new R( iCardService.consumeECard(consumeECardDto));
     }
     @GetMapping("/getCard")
     @ApiOperation(value="查询卡券信息")
