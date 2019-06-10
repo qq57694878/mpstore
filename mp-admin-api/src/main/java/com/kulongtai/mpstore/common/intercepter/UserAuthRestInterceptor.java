@@ -16,6 +16,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * jwt权限校验token
@@ -34,10 +35,10 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader(this.tokenHeader);
-        if(!StringUtils.isEmpty(token)){
+        if (!StringUtils.isEmpty(token)) {
             BaseContextHandler.setToken(token);
         }
-        if(handler instanceof HandlerMethod){
+        if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             // 配置该注解，说明不进行用户拦截
             IgnoreUserToken annotation = handlerMethod.getBeanType().getAnnotation(IgnoreUserToken.class);
@@ -53,11 +54,18 @@ public class UserAuthRestInterceptor extends HandlerInterceptorAdapter {
 
             if (token != null && token.startsWith("Bearer ")) {
                 String authToken = token.substring(7);
-                String userid = jwtTokenUtil.getUseridFromToken(authToken);
                 Claims claims = jwtTokenUtil.getAllClaimsFromToken(authToken);
-                BaseContextHandler.setUsername((String)claims.get("username"));
-                BaseContextHandler.setUser(claims);
-                BaseContextHandler.setUserID(userid);
+                if (claims.getExpiration().before(new Date())) {
+                    throw new UserTokenException("token 已过期");
+                } else {
+                    if (!StringUtils.isNotEmpty(claims.getSubject())) {
+                        BaseContextHandler.setUsername((String) claims.get("username"));
+                        BaseContextHandler.setUser(claims);
+                        BaseContextHandler.setUserID(claims.getSubject());
+                    } else {
+                        throw new UserTokenException("token 无效");
+                    }
+                }
             } else {
                 throw new UserTokenException("token 验证失败");
             }

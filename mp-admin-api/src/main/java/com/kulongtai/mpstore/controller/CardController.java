@@ -59,4 +59,9 @@ public class CardController {
     public R<Boolean> consumeECard(Integer cardNo, BigDecimal consumeMoney){
         return new R( iCardService.consumeECard(cardNo,consumeMoney));
     }
+    @GetMapping("/getCard")
+    @ApiOperation(value="查询卡券信息")
+    public R<Card> getCard(Integer cardNo){
+        return new R( iCardService.getOne(Wrappers.<Card>query().eq("card_no",cardNo)));
+    }
 }

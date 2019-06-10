@@ -14,3 +14,8 @@ export const consumeECard = (data) => request({
     method: 'post',
     data: data
 })
+export const getCard = (cardNo) => request({
+    url: '/api/card/getCard',
+    method: 'get',
+    params: {cardNo:cardNo}
+})

@@ -124,7 +124,7 @@
 
 </style>
 <script>
-    import {getCardList} from '@/api/card'
+    import {getCardList,getCard,consumeECard,consumeServiceCard} from '@/api/card'
     import {type2options,code2value} from '@/util/codeTable'
     export default {
         data() {

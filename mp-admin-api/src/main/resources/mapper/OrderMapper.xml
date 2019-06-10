@@ -38,7 +38,7 @@
         select a.order_id, a.order_no, a.total_price, a.pay_price, a.pay_status, a.pay_time, a.order_status, a.user_id, a.create_time, a.update_time
         ,b.nickname,b.mobile
         from mp_order a,mp_user b
-        where a.user_id=b.id
+        where a.user_id=b.user_id
         <if test="p.orderNo != null and p.orderNo !=''">
             AND a.order_no = #{p.orderNo}
         </if>

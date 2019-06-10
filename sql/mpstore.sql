@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-06-02 22:56:50
+Date: 2019-06-10 06:01:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,6 +31,9 @@ CREATE TABLE `mp_card` (
   `card_desc` varchar(255) DEFAULT NULL COMMENT '卡片简述',
   `valid_flag` char(1) DEFAULT '1' COMMENT '有效标记（1有效0无效）',
   `buss_type` char(2) DEFAULT '1' COMMENT '业务分类（1服务2充值卡3商品4套餐）',
+  `order_sku_id` int(11) DEFAULT NULL COMMENT '订单商品id',
+  `order_id` int(11) DEFAULT NULL COMMENT '订单id',
+  `order_no` varchar(20) DEFAULT NULL COMMENT '订单编号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`card_id`)
@@ -81,6 +84,21 @@ CREATE TABLE `mp_combo_sku` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for mp_config
+-- ----------------------------
+DROP TABLE IF EXISTS `mp_config`;
+CREATE TABLE `mp_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `key` varchar(255) DEFAULT NULL COMMENT 'key',
+  `value` varchar(255) DEFAULT NULL COMMENT 'value',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='配置表';
+
+-- ----------------------------
+-- Records of mp_config
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for mp_order
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_order`;
@@ -95,12 +113,15 @@ CREATE TABLE `mp_order` (
   `user_id` int(8) DEFAULT NULL COMMENT '用户id',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+  PRIMARY KEY (`order_id`),
+  KEY `index_order_no` (`order_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
 -- Records of mp_order
 -- ----------------------------
+INSERT INTO `mp_order` VALUES ('1', '1', '100.00', '100.00', '0', '2019-06-08 22:42:04', '1', '1', '2019-06-08 22:42:04', '2019-06-09 12:51:29');
+INSERT INTO `mp_order` VALUES ('2', '2', '100.00', '100.00', '1', '2019-06-08 22:42:04', '8', '1', '2019-06-08 22:42:04', '2019-06-09 12:51:24');
 
 -- ----------------------------
 -- Table structure for mp_order_sku
@@ -121,11 +142,15 @@ CREATE TABLE `mp_order_sku` (
   `buss_type` char(2) DEFAULT '1' COMMENT '业务分类（1服务2充值卡3商品4套餐）',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='订单商品表';
 
 -- ----------------------------
 -- Records of mp_order_sku
 -- ----------------------------
+INSERT INTO `mp_order_sku` VALUES ('1', '1', '1', '1', '保养', '给你爱车一侧撒点附近拉速度', '100.00', '100.00', '120.00', '爱的发的', 'http://www.kulongtai.com/1.jpg', '1', '2019-06-08 22:44:28');
+INSERT INTO `mp_order_sku` VALUES ('2', '1', '1', '1', '保养1', '给你爱车一侧撒点附近拉速度1', '200.00', '200.00', '240.00', '爱的发的a', 'http://www.kulongtai.com/2.jpg', '1', '2019-06-08 22:44:28');
+INSERT INTO `mp_order_sku` VALUES ('3', '2', '1', '1', '保养', '给你爱车一侧撒点附近拉速度', '100.00', '100.00', '120.00', '爱的发的', 'http://www.kulongtai.com/1.jpg', '1', '2019-06-08 22:44:28');
+INSERT INTO `mp_order_sku` VALUES ('4', '2', '1', '1', '保养', '给你爱车一侧撒点附近拉速度', '100.00', '100.00', '120.00', '爱的发的', 'http://www.kulongtai.com/1.jpg', '1', '2019-06-08 22:44:28');
 
 -- ----------------------------
 -- Table structure for mp_sku
@@ -150,37 +175,58 @@ CREATE TABLE `mp_sku` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`sku_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
 -- ----------------------------
 -- Records of mp_sku
 -- ----------------------------
+INSERT INTO `mp_sku` VALUES ('1', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('2', '保养机油2', '一次温馨的小保养，给你爱车初恋般的呵护', '150.00', '150.00', '180.00', '<img src=\"http://www.kulongtai.com/2.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/2.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:33');
+INSERT INTO `mp_sku` VALUES ('3', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('4', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('5', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('6', '保养机油2', '一次温馨的小保养，给你爱车初恋般的呵护', '150.00', '150.00', '180.00', '<img src=\"http://www.kulongtai.com/2.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/2.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:33');
+INSERT INTO `mp_sku` VALUES ('7', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('8', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('9', '保养机油2', '一次温馨的小保养，给你爱车初恋般的呵护', '150.00', '150.00', '180.00', '<img src=\"http://www.kulongtai.com/2.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/2.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:33');
+INSERT INTO `mp_sku` VALUES ('10', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('11', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('12', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('13', '保养机油2', '一次温馨的小保养，给你爱车初恋般的呵护', '150.00', '150.00', '180.00', '<img src=\"http://www.kulongtai.com/2.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/2.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:33');
+INSERT INTO `mp_sku` VALUES ('14', '保养机油', '一次温馨的小保养，给你爱车初恋般的呵护', '100.00', '100.00', '150.00', '<img src=\"http://www.kulongtai.com/1.jpg\"/>', '0', '0', '100', 'http://www.kulongtai.com/1.jpg', '1', null, '0', '1', '2019-06-03 23:40:23', '2019-06-03 23:41:28');
+INSERT INTO `mp_sku` VALUES ('15', '问答法上的', '阿道夫', '1.00', '3.00', '2.00', '<p>\n	爱的所发生的\n</p>\n<p>\n	ada速度发顺丰\n</p>\n<p>\n	阿斯蒂芬\n</p>', '0', '0', '100', 'http://localhost:9999/media\\20190608113834EFi.jpg', '1', null, '0', '1', '2019-06-08 11:38:37', '2019-06-08 11:38:37');
+INSERT INTO `mp_sku` VALUES ('16', '案发撒的撒旦法', '阿打发斯蒂芬', '11.00', '100.00', '11.00', '<p>\n	阿斯达多asdfasdfasdf阿斯蒂芬\n</p>\n<p>\n	爱的发顺丰的\n</p>', '0', '0', '100', 'http://localhost:9999/media\\20190608114243kfB.jpg', '1', null, '0', '1', '2019-06-08 11:42:57', '2019-06-08 11:42:57');
+INSERT INTO `mp_sku` VALUES ('17', '案发撒的撒旦法', '阿打发斯蒂芬', '11.00', '100.00', '11.00', '<p>\n	阿斯达多asdfasdfasdf阿斯蒂芬\n</p>\n<p>\n	爱的发顺丰的\n</p>', '0', '0', '100', 'http://localhost:9999/media\\20190608114243kfB.jpg', '1', null, '0', '1', '2019-06-08 11:43:24', '2019-06-08 11:43:24');
+INSERT INTO `mp_sku` VALUES ('18', '案发撒的撒旦法1', '阿打发斯蒂芬12', '123.00', '10011.00', '213123.00', '<p>\n	阿斯达多asdfasdfasdf阿斯蒂芬\n</p>\n<p>\n	爱的发顺丰的阿道夫\n</p>', '1', '0', '1001', 'http://localhost:9999/media\\20190608142846niZ.jpg', '2', null, '0', '1', '2019-06-08 11:44:42', '2019-06-08 11:44:42');
+INSERT INTO `mp_sku` VALUES ('19', '案发撒的撒旦法', '阿打发斯蒂芬', '11.00', '100.00', '11.00', '<p>\n	阿斯达多asdfasdfasdf阿斯蒂芬\n</p>\n<p>\n	爱的发顺丰的\n</p>', '0', '0', '100', 'http://localhost:9999/media\\20190608114243kfB.jpg', '1', null, '1', '1', '2019-06-08 11:45:58', '2019-06-08 14:15:17');
+INSERT INTO `mp_sku` VALUES ('20', '爱的', '爱的发送到', '1.00', '45.00', '23.00', '<p>\n	啊实打实地方阿斯达多\n</p>\n<p>\n	asdasd按时+\n</p>', '0', '0', '100', 'http://localhost:9999/media\\20190608120639XZx.jpg', '1', null, '1', '1', '2019-06-08 12:06:52', '2019-06-08 14:15:22');
+INSERT INTO `mp_sku` VALUES ('21', '山东分公司的', '234234', '24234.00', '234234.00', '2342.00', '胜多负少', '0', '0', '100', 'http://localhost:9999/media\\20190608120754l1K.jpg', '1', null, '1', '1', '2019-06-08 12:07:57', '2019-06-08 14:06:59');
+INSERT INTO `mp_sku` VALUES ('22', '案发撒的撒旦法1', '阿打发斯蒂芬12', '123.00', '10011.00', '213123.00', '<p>\n	阿斯达多asdfasdfasdf阿斯蒂芬\n</p>\n<p>\n	爱的发顺丰的阿道夫\n</p>', '1', '1', '1001', 'http://localhost:9999/media\\20190608142846niZ.jpg', '1', null, '0', '1', '2019-06-08 14:37:32', '2019-06-08 11:44:42');
 
 -- ----------------------------
 -- Table structure for mp_user
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_user`;
 CREATE TABLE `mp_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(63) NOT NULL COMMENT '用户名称',
   `password` varchar(63) NOT NULL DEFAULT '' COMMENT '用户密码',
   `gender` tinyint(3) NOT NULL DEFAULT '0' COMMENT '性别：0 未知， 1男， 1 女',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `last_login_time` datetime DEFAULT NULL COMMENT '最近一次登录时间',
-  `user_level` tinyint(3) DEFAULT '0' COMMENT '0 普通用户，1 VIP用户，2 高级VIP用户',
   `nickname` varchar(63) NOT NULL DEFAULT '' COMMENT '用户昵称或网络名称',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '用户手机号码',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像图片',
-  `weixin_openid` varchar(63) NOT NULL DEFAULT '' COMMENT '微信登录openid',
+  `openid` varchar(63) NOT NULL DEFAULT '' COMMENT '微信登录openid',
   `session_key` varchar(100) NOT NULL DEFAULT '' COMMENT '微信登录会话KEY',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '0 可用, 1 禁用, 2 注销',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `del_flag` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='微信用户表';
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='微信用户表';
 
 -- ----------------------------
 -- Records of mp_user
 -- ----------------------------
+INSERT INTO `mp_user` VALUES ('1', '1', '', '0', '2019-06-09', null, 'ljl', '13842823735', 'http://www.kulongtai.com/head.jpg', '1', '', '0', '2019-06-09 14:01:45', '2019-06-09 14:04:02', '0');
