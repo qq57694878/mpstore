@@ -12,6 +12,8 @@
         <result column="face_price" property="facePrice" />
         <result column="balance_price" property="balancePrice" />
         <result column="card_content" property="cardContent" />
+        <result column="rest_frequency" property="restFrequency" />
+        <result column="total_frequency" property="totalFrequency" />
         <result column="card_desc" property="cardDesc" />
         <result column="valid_flag" property="validFlag" />
         <result column="buss_type" property="bussType" />
@@ -24,7 +26,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        card_id, card_no, user_id, sku_id, card_name, face_price, balance_price, card_content, card_desc, valid_flag, buss_type, order_sku_id, order_id,order_no, create_time, update_time
+        card_id, card_no, user_id, sku_id, card_name, face_price, balance_price, card_content, rest_frequency, total_frequency, card_desc, valid_flag, buss_type, order_sku_id, order_id, order_no, create_time, update_time
     </sql>
 
 </mapper>

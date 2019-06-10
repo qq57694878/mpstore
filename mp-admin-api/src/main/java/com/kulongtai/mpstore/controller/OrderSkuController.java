@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author lijinliang
- * @since 2019-06-02
+ * @since 2019-06-10
  */
 @RestController
-@RequestMapping("/api/order-sku")
+@RequestMapping("/order-sku")
 public class OrderSkuController {
 
 }

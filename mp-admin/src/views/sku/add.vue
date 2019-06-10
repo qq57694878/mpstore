@@ -47,7 +47,20 @@
                             <el-form-item label="划线价格" prop="linePrice">
                                 <el-input type="number" v-model.number="skuForm.linePrice" class="tpl-form-input"></el-input>
                             </el-form-item>
-                            <el-form-item label="商品面值(e卡)" prop="facePrice">
+                            <el-form-item label="商品业务类型" prop="bussType">
+                                <el-select v-model="skuForm.bussType" >
+                                    <el-option
+                                            v-for="item in bussTypeOptions"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item v-if="skuForm.bussType==1" label="次数" prop="frequency">
+                                <el-input type="number" v-model.number="skuForm.frequency" class="tpl-form-input"></el-input>
+                            </el-form-item>
+                            <el-form-item v-if="skuForm.bussType==2" label="商品面值(e卡)" prop="facePrice">
                                 <el-input type="number" v-model.number="skuForm.facePrice" class="tpl-form-input"></el-input>
                             </el-form-item>
                             <div class="widget-head am-cf">
@@ -118,8 +131,11 @@
         },
         data() {
             return {
+                bussTypeOptions:type2options("buss_type"),
                 skuStatusOptions: type2options("sku_status"),
                 skuForm: {
+                    frequency:1,
+                    bussType:"1",
                     skuName:"",
                     mainUrl:'',
                     skuContent:"",
@@ -129,10 +145,16 @@
                     linePrice:"",
                     salesInit:0,
                     sort:100,
-                    skuStatus:"1",
-                    bussType:"1",
+                    skuStatus:"1"
                 },
                 rules: {
+                    bussType: [
+                        {required: true, message: '商品业务类型', trigger: 'blur'},
+                    ],
+                    frequency: [
+                        {required: true, message: '请输入次数', trigger: 'blur'},
+                        { type: 'number', message: '次数必须为数字值'}
+                    ],
                     skuName: [
                         {required: true, message: '请输入商品名称', trigger: 'blur'},
                         {min: 1, max: 20, message: '长度在 1 到 30 个字符', trigger: 'blur'}

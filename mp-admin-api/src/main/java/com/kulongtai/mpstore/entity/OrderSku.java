@@ -21,7 +21,7 @@ package com.kulongtai.mpstore.entity;
     * </p>
 *
 * @author lijinliang
-* @since 2019-06-02
+* @since 2019-06-10
 */
     @Data
         @EqualsAndHashCode(callSuper = false)
@@ -76,9 +76,13 @@ package com.kulongtai.mpstore.entity;
         @TableField("main_url")
     private String mainUrl;
 
-            @ApiModelProperty(value = "业务分类（1服务2充值卡3商品4套餐）")
+            @ApiModelProperty(value = "业务分类（1次数卡2E卡4套餐）")
         @TableField("buss_type")
     private String bussType;
+
+            @ApiModelProperty(value = "次数")
+        @TableField("frequency")
+    private Integer frequency;
 
             @ApiModelProperty(value = "创建时间")
         @TableField("create_time")

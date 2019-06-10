@@ -5,7 +5,6 @@ package com.kulongtai.mpstore.entity;
     import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.extension.activerecord.Model;
     import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
     import com.baomidou.mybatisplus.annotation.TableField;
     import java.io.Serializable;
     import java.util.Date;
@@ -22,7 +21,7 @@ package com.kulongtai.mpstore.entity;
     * </p>
 *
 * @author lijinliang
-* @since 2019-06-09
+* @since 2019-06-10
 */
     @Data
         @EqualsAndHashCode(callSuper = false)
@@ -65,6 +64,14 @@ package com.kulongtai.mpstore.entity;
         @TableField("card_content")
     private String cardContent;
 
+            @ApiModelProperty(value = "剩余次数")
+        @TableField("rest_frequency")
+    private Integer restFrequency;
+
+            @ApiModelProperty(value = "总次数")
+        @TableField("total_frequency")
+    private Integer totalFrequency;
+
             @ApiModelProperty(value = "卡片简述")
         @TableField("card_desc")
     private String cardDesc;
@@ -73,7 +80,7 @@ package com.kulongtai.mpstore.entity;
         @TableField("valid_flag")
     private String validFlag;
 
-            @ApiModelProperty(value = "业务分类（1服务2充值卡3商品4套餐）")
+            @ApiModelProperty(value = "业务分类（1次数卡2E卡）")
         @TableField("buss_type")
     private String bussType;
 
@@ -85,8 +92,8 @@ package com.kulongtai.mpstore.entity;
         @TableField("order_id")
     private Integer orderId;
 
-    @ApiModelProperty(value = "订单编号")
-    @TableField("order_no")
+            @ApiModelProperty(value = "订单编号")
+        @TableField("order_no")
     private String orderNo;
 
             @ApiModelProperty(value = "创建时间")

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author lijinliang
- * @since 2019-06-02
+ * @since 2019-06-10
  */
 @Service
 public class OrderSkuServiceImpl extends ServiceImpl<OrderSkuMapper, OrderSku> implements IOrderSkuService {

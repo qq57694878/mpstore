@@ -21,8 +21,8 @@ public class NoGenerator {
     }
 
     /**
-     * 生成卡券兑换码：总12位整数 前2位（66：服务卡88充值卡99:商品卡）业务卡类型+10位随机数
-     * @param bussType 1服务卡2充值卡3商品
+     * 生成卡券兑换码：总12位整数 前2位（66：次数卡88E卡）业务卡类型+10位随机数
+     * @param bussType 业务分类（1次数卡2E卡4套餐）
      * @return
      */
     public static long cardNo(String bussType) {
@@ -37,9 +37,6 @@ public class NoGenerator {
                 break;
             case "2":
                 baseNum = 88 * BASE_NUM;
-                break;
-            case "3":
-                baseNum = 99 * BASE_NUM;
                 break;
             default:
                 baseNum = 66 * BASE_NUM;

@@ -16,12 +16,13 @@
         <result column="sku_content" property="skuContent" />
         <result column="main_url" property="mainUrl" />
         <result column="buss_type" property="bussType" />
+        <result column="frequency" property="frequency" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_id, sku_id, buy_num, sku_name, sku_desc, sku_price, face_price, line_price, sku_content, main_url, buss_type, create_time
+        id, order_id, sku_id, buy_num, sku_name, sku_desc, sku_price, face_price, line_price, sku_content, main_url, buss_type, frequency, create_time
     </sql>
 
 </mapper>
