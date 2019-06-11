@@ -1,9 +1,20 @@
 package com.kulongtai.mpstore.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.kulongtai.mpstore.common.R;
+import com.kulongtai.mpstore.entity.Card;
+import com.kulongtai.mpstore.entity.Config;
+import com.kulongtai.mpstore.service.IConfigService;
+import com.kulongtai.mpstore.vo.AllConfigVo;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,4 +28,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/config")
 public class ConfigController {
 
+    @Autowired
+    private IConfigService iConfigService;
+
+    @GetMapping("/getAllConfig")
+    @ApiOperation(value="查询所有的配置")
+    public R<AllConfigVo> getAllConfig(){
+        AllConfigVo result = new AllConfigVo();
+       List<Config> list = iConfigService.list();
+       Map<String,String> m = new HashMap<String,String>();
+       if(list!=null&&list.size()>0){
+           list.forEach(item->{
+               m.put(item.getKey(),item.getValue());
+           });
+       }
+        result.setAppid(m.get("appid"));
+        result.setAppsecret(m.get("appsecret"));
+        result.setMchid(m.get("mchid"));
+        result.setPaykey(m.get("paykey"));
+        return new R(result);
+    }
+    @PostMapping("/saveAllConfig")
+    @ApiOperation(value="保存所有的配置")
+    public R<Boolean> saveAllConfig(@RequestBody  AllConfigVo allConfigVo){
+        iConfigService.remove(Wrappers.emptyWrapper());
+        List<Config> list = new ArrayList<>();
+        list.add(new Config().setKey("appid").setValue(allConfigVo.getAppid()));
+        list.add(new Config().setKey("appsecret").setValue(allConfigVo.getAppsecret()));
+        list.add(new Config().setKey("mchid").setValue(allConfigVo.getMchid()));
+        list.add(new Config().setKey("paykey").setValue(allConfigVo.getPaykey()));
+        iConfigService.saveBatch(list);
+        return new R(true);
+    }
 }

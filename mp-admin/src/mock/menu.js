@@ -13,7 +13,7 @@ import Mock from 'mockjs'
  */
 const first = [
     {
-        id: 67,
+        id: 66,
         label: "商品管理",
         path: '/sku',
         component: 'views/sku/index',
@@ -21,7 +21,7 @@ const first = [
         children: [],
     },
     {
-        id: 66,
+        id: 67,
         label: "订单管理",
         path: '/order',
         component: 'views/order/index',
@@ -29,7 +29,7 @@ const first = [
         children: [],
     },
     {
-        id: 70,
+        id: 68,
         label: "卡券管理",
         path: '/card',
         component: 'views/card/index',
@@ -37,20 +37,37 @@ const first = [
         children: [],
     },
     {
-        id: 68,
+        id: 69,
         label: "用户管理",
         path: '/wxuser',
         component: 'views/wxuser/index',
         icon: 'icon-yonghu',
         children: [],
     },
+
     {
-        id: 69,
+        id: 71,
         label: "小程序管理",
         path: '/wxmp',
-        component: 'views/wxmp/index',
         icon: 'icon-xiaochengxu',
-        children: [],
+        children: [
+            {
+                id: 70,
+                label: "小程序配置",
+                path: '/param-config',
+                component: 'views/param-config/index',
+                icon: 'icon-xiaochengxu',
+                children: [],
+            },
+            {
+                id: 70,
+                label: "页面配置",
+                path: '/page-config',
+                component: 'views/param-config/index',
+                icon: 'icon-xiaochengxu',
+                children: [],
+            },
+        ],
     },
     {
     id: 33,

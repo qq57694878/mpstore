@@ -14,5 +14,5 @@ public class ConsumeFrequencyCardDto  implements Serializable {
     @ApiModelProperty(value = "卡券消费码")
     private Integer cardNo;
     @ApiModelProperty(value = "本次消费次数")
-    private BigDecimal usedFrequency;
+    private Integer usedFrequency;
 }

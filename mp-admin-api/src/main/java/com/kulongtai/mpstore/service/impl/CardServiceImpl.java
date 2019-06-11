@@ -46,31 +46,42 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
     @Override
     public boolean consumeFrequencyCard(ConsumeFrequencyCardDto consumeFrequencyCardDto){
         Integer cardNo = consumeFrequencyCardDto.getCardNo();
+        Integer usedFrequency = consumeFrequencyCardDto.getUsedFrequency();
 
        Card card =  this.getOne(Wrappers.<Card>query().eq("card_no",cardNo));
        if(card==null){
            throw new BusinessException("失败，不存在的卡号");
        }
        if(!"1".equals(card.getValidFlag())){
-            throw new BusinessException("失败，该卡已使用过");
+            throw new BusinessException("失败，该卡已无效");
        }
-       //1.改变卡状态
-        new Card().setCardId(card.getCardId()).setValidFlag("0").setUpdateTime(new Date()).updateById();
+        if(card.getRestFrequency()<usedFrequency){
+            throw new BusinessException("失败，该卡剩余次数不足（剩余次数为:"+card.getRestFrequency()+",本次消费次数为:"+usedFrequency+"）");
+        }
+       //1.改变卡次数
+        Card updateCard  = new Card();
+        updateCard.setCardId(card.getCardId()).setUpdateTime(new Date());
+        updateCard.setRestFrequency(card.getRestFrequency()-usedFrequency);
+        if(card.getRestFrequency()-usedFrequency<=0){
+            updateCard.setValidFlag("0"); //至为无效
+        }
+        updateCard.updateById();
         //2.记录消费记录
         CardRecord cardRecord = new CardRecord();
         cardRecord.setCardId(card.getCardId());
         cardRecord.setBussType(card.getBussType());
         cardRecord.setCardNo(cardNo);
-        cardRecord.setBeforeUsedPrice(card.getBalancePrice());
-        cardRecord.setUsedPrice(card.getFacePrice());
-        cardRecord.setAfterUsedPrice(new BigDecimal(0));
+        cardRecord.setBeforeUsedFrequency(card.getRestFrequency());
+        cardRecord.setUsedFrequency(usedFrequency);
+        cardRecord.setAfterUsedFrequency(updateCard.getRestFrequency());
         cardRecord.setUserId(card.getUserId());
+        cardRecord.setCreateTime(new Date());
         cardRecordMapper.insert(cardRecord);
         //3.发送服务消息
         try{
             User user = userMapper.selectById(card.getUserId());
             Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
-            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","secret"));
+            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
             wxaConfig.setAppId(appidConfig.getValue());
             wxaConfig.setAppSecret(secretConfig.getValue());
@@ -79,7 +90,7 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
             String accessToken = wxaAccessToken.getAccessToken();*/
             StringBuilder message = new StringBuilder();
             String currentTime =DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
-            message.append("消费提醒：您的{卡号："+card.getCardNo()+"，卡名:"+card.getCardName()+"}的服务卡已消费使用，使用时间:"+currentTime+",如有疑问请致电商家！");
+            message.append("消费提醒：您的{卡号："+card.getCardNo()+"，卡名:"+card.getCardName()+"}的服务卡本次消费"+usedFrequency+"次，使用时间:"+currentTime+",如有疑问请致电商家！");
             WxaMessageApi.sendText(user.getOpenid(),message.toString());
         }catch (Exception e){log.error("卡号："+cardNo+"，客服消息发送失败");};
 
@@ -95,11 +106,19 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
             throw new BusinessException("失败，不存在的卡号");
         }
         if(!"1".equals(card.getValidFlag())){
-            throw new BusinessException("失败，该卡已使用过");
+            throw new BusinessException("失败，该卡已无效");
         }
         if(card.getBalancePrice().doubleValue()<consumeMoney.doubleValue()){
             throw new BusinessException("失败，该卡余额不足（余额为:"+card.getBalancePrice()+",本次消费金额为:"+consumeMoney+"）");
         }
+        //1.改变卡余额
+        Card updateCard  = new Card();
+        updateCard.setCardId(card.getCardId()).setUpdateTime(new Date());
+        updateCard.setBalancePrice(card.getBalancePrice().subtract(consumeMoney));
+        if(card.getBalancePrice().subtract(consumeMoney).doubleValue()<=0){
+            updateCard.setValidFlag("0"); //至为无效
+        }
+        updateCard.updateById();
         //1.改变卡状态,当余额为零时
         if(card.getBalancePrice().subtract(consumeMoney).doubleValue()<=0){
             new Card().setCardId(card.getCardId()).setValidFlag("0").setUpdateTime(new Date()).updateById();
@@ -113,12 +132,13 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
         cardRecord.setUsedPrice(consumeMoney);
         cardRecord.setAfterUsedPrice(card.getBalancePrice().subtract(consumeMoney));
         cardRecord.setUserId(card.getUserId());
+        cardRecord.setCreateTime(new Date());
         cardRecordMapper.insert(cardRecord);
         //3.发送服务消息
         try{
             User user = userMapper.selectById(card.getUserId());
             Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
-            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","secret"));
+            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
             wxaConfig.setAppId(appidConfig.getValue());
             wxaConfig.setAppSecret(secretConfig.getValue());
