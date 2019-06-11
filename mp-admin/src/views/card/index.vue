@@ -253,8 +253,6 @@
                         { validator(rule,value,callback){
                             if(parseInt(value)<0){
                                 callback(new Error('本次消费次数必须大于0'));
-                            }else if(parseInt(value)>parseInt(this.frequencyForm.restFrequency)){
-                                callback(new Error('本次消费次数大于剩余次数'));
                             }else{
                                 callback();
                             }
@@ -268,9 +266,7 @@
                             if(!/^[0-9]+(.[0-9]{1,2})?$/.test(value+"")){
                                 callback(new Error('本次消费金额格式不正确'));
                             }
-                            if(parseFloat(value)>parseFloat(this.eForm.balancePrice)){
-                                callback(new Error('本次消费金额大于本卡余额'));
-                            }else{
+                           else{
                                 callback();
                             }
                         }, trigger: 'blur' }
@@ -311,6 +307,10 @@
             handleConsumeFrequencyCard(){
                 this.$refs['frequencyForm'].validate((valid) => {
                     if (valid) {
+                        if(this.frequencyForm.usedFrequency>parseInt(this.frequencyForm.restFrequency)){
+                            this.$message.success('本次消费次数大于剩余次数');
+                            return;
+                        }
                         this.loading = true;
                         consumeFrequencyCard({cardNo:this.frequencyForm.cardNo,usedFrequency:this.frequencyForm.usedFrequency})
                             .then(res => {
@@ -338,6 +338,11 @@
             handleConsumeECard(){
                 this.$refs['eForm'].validate((valid) => {
                     if (valid) {
+
+                        if(this.eForm.usedPrice>parseInt(this.eForm.balancePrice)){
+                            this.$message.success('本次消费金额大于本卡余额');
+                            return;
+                        }
                 consumeECard({cardNo:this.eForm.cardNo,usedPrice:this.eForm.usedPrice})
                     .then(res => {
                         if(res.data.code==200){
