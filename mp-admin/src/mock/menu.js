@@ -49,24 +49,25 @@ const first = [
         id: 71,
         label: "小程序管理",
         path: '/wxmp',
+        component: 'views/param-config/index',
         icon: 'icon-xiaochengxu',
         children: [
-            {
+           /* {
                 id: 70,
                 label: "小程序配置",
                 path: '/param-config',
                 component: 'views/param-config/index',
                 icon: 'icon-xiaochengxu',
                 children: [],
-            },
-            {
+            },*/
+           /* {
                 id: 71,
-                label: "首页配置",
+                label: "首页设计",
                 path: '/app-home',
-                component: 'views/app-home/index',
+                component: 'views/page-home/index',
                 icon: 'icon-shouye',
                 children: [],
-            },
+            },*/
         ],
     },
     {

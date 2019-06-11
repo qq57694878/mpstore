@@ -61,7 +61,7 @@
                 },
                 rules: {
                     content: [
-                        {required: true, message: '请输入关于我们内容', trigger: 'blur'}
+                        {required: true, message: '请输入关于通告内容', trigger: 'blur'}
                     ],
                     noticerangetime:[
                         {required: true, message: '请输入有效期', trigger: 'blur'}
@@ -93,27 +93,30 @@
                 });
             },
             handleSaveNotice(){
-                this.isloading=true;
-                saveNotice(this.noticeForm).then(res=>{
-                    this.isloading=false;
-                    if(res.data.code=200){
-                        this.$notify({
-                            title:'成功',
-                            duration:2000,
-                            message: '保存成功',
-                            type: 'success',
-                        });
-                    }else{
-                        this.$notify({
-                            title:'操作失败',
-                            showClose: true,
-                            message: '保存失败',
-                            type: 'error',
+                this.$refs['noticeForm'].validate((valid) => {
+                    if (valid) {
+                        this.isloading = true;
+                        saveNotice(this.noticeForm).then(res => {
+                            this.isloading = false;
+                            if (res.data.code = 200) {
+                                this.$notify({
+                                    title: '成功',
+                                    duration: 2000,
+                                    message: '保存成功',
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify({
+                                    title: '操作失败',
+                                    showClose: true,
+                                    message: '保存失败',
+                                    type: 'error',
+                                });
+                            }
                         });
                     }
-                });
+                })
             }
-
         }
     }
 </script>

@@ -72,25 +72,29 @@
                 });
             },
             handleSaveAbout(){
-                this.isloading=true;
-                saveAbout(this.aboutForm).then(res=>{
-                    this.isloading=false;
-                    if(res.data.code=200){
-                        this.$notify({
-                            title:'成功',
-                            duration:2000,
-                            message: '保存成功',
-                            type: 'success',
-                        });
-                    }else{
-                        this.$notify({
-                            title:'操作失败',
-                            showClose: true,
-                            message: '保存失败',
-                            type: 'error',
+                this.$refs['aboutForm'].validate((valid) => {
+                    if (valid) {
+                        this.isloading = true;
+                        saveAbout(this.aboutForm).then(res => {
+                            this.isloading = false;
+                            if (res.data.code = 200) {
+                                this.$notify({
+                                    title: '成功',
+                                    duration: 2000,
+                                    message: '保存成功',
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify({
+                                    title: '操作失败',
+                                    showClose: true,
+                                    message: '保存失败',
+                                    type: 'error',
+                                });
+                            }
                         });
                     }
-                });
+                })
             },
             onAboutContentChange(value){
                 this.aboutForm.content = value;
