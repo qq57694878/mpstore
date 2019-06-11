@@ -249,8 +249,7 @@
                 cardList: [],
                 rulesFrequency:{
                     usedFrequency:[{ required: true, message: '本次消费次数不能为空'},
-                        { type: "number", message: '消费次数必须为整数',trigger: 'input'},
-                        { validator(rule,value,callback){
+                        { validator:function(rule,value,callback){
                             if(parseInt(value)<0){
                                 callback(new Error('本次消费次数必须大于0'));
                             }else{
@@ -261,8 +260,7 @@
                 },
                 rulesEForm:{
                     usedPrice:[{ required: true, message: '本次消费次数不能为空'},
-                        { type: "number", message: '消费金额必须为数字', trigger: 'input'},
-                        { validator(rule,value,callback){
+                        { validator:function(rule,value,callback){
                             if(!/^[0-9]+(.[0-9]{1,2})?$/.test(value+"")){
                                 callback(new Error('本次消费金额格式不正确'));
                             }
