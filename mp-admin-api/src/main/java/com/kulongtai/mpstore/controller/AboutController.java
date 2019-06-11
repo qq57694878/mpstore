@@ -1,9 +1,17 @@
 package com.kulongtai.mpstore.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.kulongtai.mpstore.common.R;
+import com.kulongtai.mpstore.entity.About;
+import com.kulongtai.mpstore.entity.Notice;
+import com.kulongtai.mpstore.service.IAboutService;
+import com.kulongtai.mpstore.service.INoticeService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -14,7 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-06-11
  */
 @RestController
-@RequestMapping("/about")
+@RequestMapping("/api/about")
 public class AboutController {
-
+    @Autowired
+    private IAboutService iAboutService;
+    @GetMapping("/getNotice")
+    @ApiOperation(value="查询通知通告")
+    public R<About> getAbout() {
+        List<About> list = iAboutService.list();
+        About about =null;
+        if(list!=null&&list.size()>0){
+            about = list.get(0);
+        }
+        return new R(about);
+    }
+    @PostMapping("/saveAbout")
+    @ApiOperation(value="保存通知通告")
+    public R<About> saveAbout(@RequestBody About about) {
+        iAboutService.remove(Wrappers.update());
+        iAboutService.save(about);
+        return new R(about);
+    }
 }

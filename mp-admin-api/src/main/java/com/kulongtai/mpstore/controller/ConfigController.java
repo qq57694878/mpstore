@@ -51,7 +51,7 @@ public class ConfigController {
     @PostMapping("/saveAllConfig")
     @ApiOperation(value="保存所有的配置")
     public R<Boolean> saveAllConfig(@RequestBody  AllConfigVo allConfigVo){
-        iConfigService.remove(Wrappers.emptyWrapper());
+        iConfigService.remove(Wrappers.update());
         List<Config> list = new ArrayList<>();
         list.add(new Config().setKey("appid").setValue(allConfigVo.getAppid()));
         list.add(new Config().setKey("appsecret").setValue(allConfigVo.getAppsecret()));
