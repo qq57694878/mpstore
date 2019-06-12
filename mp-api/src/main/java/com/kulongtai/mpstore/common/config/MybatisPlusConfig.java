@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @date
  */
 @Configuration
-@MapperScan("com.kulongtai.mpstore.dao")
+@MapperScan("com.kulongtai.mpstore.mapper")
 public class MybatisPlusConfig {
     /**
      * 分页插件

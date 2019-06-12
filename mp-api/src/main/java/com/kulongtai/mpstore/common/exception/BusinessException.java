@@ -3,7 +3,7 @@ package com.kulongtai.mpstore.common.exception;
 /**
  * Created by ace on 2017/9/8.
  */
-public class BaseException extends RuntimeException {
+public class BusinessException extends RuntimeException {
     private int status = 200;
 
     public int getStatus() {
@@ -14,27 +14,27 @@ public class BaseException extends RuntimeException {
         this.status = status;
     }
 
-    public BaseException() {
+    public BusinessException() {
     }
 
-    public BaseException(String message, int status) {
+    public BusinessException(String message, int status) {
         super(message);
         this.status = status;
     }
 
-    public BaseException(String message) {
+    public BusinessException(String message) {
         super(message);
     }
 
-    public BaseException(String message, Throwable cause) {
+    public BusinessException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public BaseException(Throwable cause) {
+    public BusinessException(Throwable cause) {
         super(cause);
     }
 
-    public BaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public BusinessException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

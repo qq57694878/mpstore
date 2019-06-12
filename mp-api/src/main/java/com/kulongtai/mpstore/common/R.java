@@ -10,24 +10,27 @@ import java.io.Serializable;
  * api 返回结果
  */
 @Data
-public class R implements Serializable {
+public class R<T> implements Serializable {
 
     private int code;
 
     private String msg;
 
-    private Object data;
+    private T data;
 
-    public R() {}
+    public R() {
+        this.code = 200;
+        this.msg="";
+    }
 
 
-    public R(int code, String msg, Object data) {
+    public R(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public R(Object data) {
+    public R(T data) {
         this.code = 200;
         this.msg="";
         this.data = data;
@@ -35,7 +38,7 @@ public class R implements Serializable {
     public R(int code, String msg) {
         this.code = code;
         this.msg = msg;
-        this.data = "";
+        this.data = null;
     }
  
 }
