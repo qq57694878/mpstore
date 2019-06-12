@@ -89,10 +89,10 @@
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
                                             <a v-if="cardInfo['validFlag']==1" href="javascript:;" @click="showDialog(cardInfo)" class="tpl-table-black-operation-green">
-                                                <i class="am-icon-trash"></i> 消费
+                                                <i class="am-icon-money"></i> 消费
                                             </a>
                                            <del v-else> <a  href="javascript:;" class="tpl-table-black-operation-green">
-                                                <i class="am-icon-trash"></i> 消费
+                                                <i class="am-icon-money"></i> 消费
                                             </a>
                                            </del>
                                         </div>
@@ -131,19 +131,28 @@
             <el-form :model="frequencyForm" class="tpl-form-line-form"
                      ref="frequencyForm"
                      label-width="120px">
-                <el-form-item label="卡号" prop="cardNo">
-                    <el-input v-model="frequencyForm.cardNo"  class="tpl-form-input" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="卡名" prop="cardName">
-                    <el-input v-model="frequencyForm.cardName"  class="tpl-form-input" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="本卡剩余次数" prop="restFrequency">
-                    <el-input v-model="frequencyForm.restFrequency"  class="tpl-form-input" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="本次消费次数"
-                              prop="usedFrequency"
-                              >
-                    <el-input v-model.number="frequencyForm.usedFrequency" type="number"  class="tpl-form-input"
+                <div class="am-g ">
+                    <div class="am-u-sm-3">
+                        <el-form-item label="卡号：" prop="cardNo">
+                            {{frequencyForm.cardNo}}
+                        </el-form-item>
+                    </div>
+                    <div class="am-u-sm-3">
+                        <el-form-item label="本卡剩余次数：" prop="restFrequency">
+                            <b style="color:#FF7D41">{{frequencyForm.restFrequency}}</b>
+                        </el-form-item>
+                    </div>
+
+                    <div class="am-u-sm-6">
+                        <el-form-item label="卡名：" prop="cardName">
+                            {{frequencyForm.cardName}}
+                        </el-form-item>
+                    </div>
+                </div>
+
+
+                <el-form-item label="本次消费次数" prop="usedFrequency">
+                    <el-input v-model.number="frequencyForm.usedFrequency"   class="tpl-form-input"
                               placeholder="请输入本次消费次数"></el-input>
                 </el-form-item>
             </el-form>
@@ -155,23 +164,30 @@
                    :visible.sync="show2Dialog"
                    width="50%"
                    append-to-body>
-            <el-form :model="eForm"
+            <el-form :model="eForm" class="tpl-form-line-form"
                      ref="eForm" :rules="rulesEForm"
                      label-width="120px">
-                <el-form-item label="卡号" prop="cardNo">
-                    <el-input v-model="eForm.cardNo" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="卡名" prop="cardName">
-                    <el-input v-model="eForm.cardName" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="本卡余额" prop="balancePrice">
-                    <el-input v-model="eForm.balancePrice" :readonly="true"></el-input>
-                </el-form-item>
-                <el-form-item label="本次消费金额"
-                              prop="usedPrice"
-                              >
-                    <el-input v-model="eForm.usedPrice"
-                              placeholder="请输入本次消费金额"></el-input>
+                <div class="am-g ">
+                    <div class="am-u-sm-3">
+                        <el-form-item label="卡号：" prop="cardNo">
+                            {{eForm.cardNo}}
+                        </el-form-item>
+                    </div>
+                    <div class="am-u-sm-3">
+                    <el-form-item label="本卡余额：" prop="balancePrice">
+                        <b style="color:#FF7D41">{{eForm.balancePrice}}</b>
+                    </el-form-item>
+                   </div>
+
+                    <div class="am-u-sm-6">
+                        <el-form-item label="卡名：" prop="cardName">
+                            {{eForm.cardName}}
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <el-form-item label="本次消费金额" prop="usedPrice">
+                    <el-input v-model="eForm.usedPrice" placeholder="请输入本次消费金额" class="tpl-form-input"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -343,7 +359,7 @@
                         }
                 consumeECard({cardNo:this.eForm.cardNo,usedPrice:this.eForm.usedPrice})
                     .then(res => {
-                        if(res.data.code==200){
+                        if(res.data.data){
                             this.$notify({
                                 title:'成功',
                                 duration:3000,

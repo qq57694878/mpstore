@@ -1,6 +1,24 @@
 const app = getApp()
 
 Page({
+
+  /**
+   * 订单导航跳转
+   */
+  onTargetOrder(e) {
+    // 记录formid
+    // App.saveFormId(e.detail.formId);
+    let urls = {
+      all: '/pages/order/list?type=all',
+      unpay: '/pages/order/list?type=unpay',
+      payed: '/pages/order/list?type=payed',
+      cancel: '/pages/order/list?type=cancel'
+    };
+    // 转跳指定的页面
+    wx.navigateTo({
+      url: urls[e.currentTarget.dataset.type]
+    })
+  },
   data: {
     aboutUsTitle: '',
     aboutUsContent: '',

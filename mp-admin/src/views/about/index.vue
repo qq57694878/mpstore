@@ -65,9 +65,11 @@
         },
         methods:{
             handleGetAbout(){
-                getAbout().then(function(response){
-                    if(response.data.data){
-                        this.aboutForm = response.data.data
+                getAbout().then(response=>{
+                    var r = response.data.data;
+                    if(r){
+                        this.aboutForm.content = r.content;
+                        this.aboutForm.id= r.id;
                     }
                 });
             },
@@ -77,7 +79,7 @@
                         this.isloading = true;
                         saveAbout(this.aboutForm).then(res => {
                             this.isloading = false;
-                            if (res.data.code = 200) {
+                            if (res.data.data) {
                                 this.$notify({
                                     title: '成功',
                                     duration: 2000,

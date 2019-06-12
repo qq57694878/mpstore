@@ -83,8 +83,8 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
             Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
             Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
-            wxaConfig.setAppId(appidConfig.getValue());
-            wxaConfig.setAppSecret(secretConfig.getValue());
+            wxaConfig.setAppId(appidConfig.getV());
+            wxaConfig.setAppSecret(secretConfig.getV());
             WxaConfigKit.setWxaConfig(wxaConfig);
             /*WxaAccessToken wxaAccessToken =  WxaAccessTokenApi.getAccessToken();
             String accessToken = wxaAccessToken.getAccessToken();*/
@@ -140,8 +140,8 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
             Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
             Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
-            wxaConfig.setAppId(appidConfig.getValue());
-            wxaConfig.setAppSecret(secretConfig.getValue());
+            wxaConfig.setAppId(appidConfig.getV());
+            wxaConfig.setAppSecret(secretConfig.getV());
             WxaConfigKit.setWxaConfig(wxaConfig);
             /*WxaAccessToken wxaAccessToken =  WxaAccessTokenApi.getAccessToken();
             String accessToken = wxaAccessToken.getAccessToken();*/

@@ -33,13 +33,13 @@ package com.kulongtai.mpstore.entity;
             @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-            @ApiModelProperty(value = "key")
-        @TableField("key")
-    private String key;
+            @ApiModelProperty(value = "k")
+        @TableField("k")
+    private String k;
 
-            @ApiModelProperty(value = "value")
-        @TableField("value")
-    private String value;
+            @ApiModelProperty(value = "v")
+        @TableField("v")
+    private String v;
 
 
     @Override

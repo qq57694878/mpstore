@@ -8,7 +8,7 @@
               <fieldset>
                 <el-form :model="configForm" class="tpl-form-line-form"
                          ref="configForm" v-loading="loading"
-                         label-width="120px">
+                         label-width="200px">
                 <div class="widget-head am-cf">
                   <div class="widget-title am-fl">小程序参数设置</div>
                 </div>
@@ -33,7 +33,7 @@
 
                 <div class="am-form-group">
                   <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
-                    <button type="submit" class="j-submit am-btn am-btn-secondary">提交
+                    <button type="button" class="j-submit am-btn am-btn-secondary" @click="handleSaveAllConfig">提交
                     </button>
                   </div>
                 </div>
@@ -53,6 +53,7 @@ export default {
   name: "param-config",
   data () {
     return {
+        loading:false,
         configForm:{
             appid:"",
             appsecret:"",
@@ -62,7 +63,7 @@ export default {
     };
   },
   created () {
-      handleGetAllConfig();
+      this.handleGetAllConfig();
   },
   computed: {
 
@@ -83,11 +84,11 @@ export default {
                   this.loading = false;
               });
       },
-      handleSaveAllConfig:function(){
+      handleSaveAllConfig(){
           this.loading = true;
-          saveAllConfig(configForm)
+          saveAllConfig(this.configForm)
               .then(res => {
-                  if(res.data.code==200){
+                  if(res.data.data){
                       this.$notify({
                           title:'成功',
                           duration:3000,

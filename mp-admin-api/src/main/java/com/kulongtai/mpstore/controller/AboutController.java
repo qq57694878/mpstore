@@ -26,8 +26,8 @@ import java.util.List;
 public class AboutController {
     @Autowired
     private IAboutService iAboutService;
-    @GetMapping("/getNotice")
-    @ApiOperation(value="查询通知通告")
+    @GetMapping("/getAbout")
+    @ApiOperation(value="查询关于我们")
     public R<About> getAbout() {
         List<About> list = iAboutService.list();
         About about =null;
@@ -37,10 +37,10 @@ public class AboutController {
         return new R(about);
     }
     @PostMapping("/saveAbout")
-    @ApiOperation(value="保存通知通告")
-    public R<About> saveAbout(@RequestBody About about) {
+    @ApiOperation(value="保存关于我们")
+    public R<Boolean> saveAbout(@RequestBody About about) {
         iAboutService.remove(Wrappers.update());
         iAboutService.save(about);
-        return new R(about);
+        return new R(true);
     }
 }

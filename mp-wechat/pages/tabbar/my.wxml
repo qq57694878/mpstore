@@ -29,8 +29,7 @@
     </view>
     -->
     <view class='userInfoMask'></view>
-    <wxc-button class='my-sign' wx:if="{{score_sign_continuous == 0}}" size="small" type="beauty" value="每日签到" bindclick="scoresign"></wxc-button>
-    <wxc-button class='my-sign' wx:if="{{score_sign_continuous > 0}}" size="small" type="secondary" value="已连续签到 {{score_sign_continuous}} 天" bindclick="scoresign"></wxc-button>
+
   </view>
 
   <view class='h-contents'>
@@ -41,8 +40,8 @@
 
         <view class="order-navbar-item flex-box">
           <form bindsubmit="onTargetOrder" data-type="unpay"  report-submit="true ">
-            <button formType="submit " class="btn-normal ">
-              <text class="order-navbar__icon iconfont icon-daifukuan "></text>
+            <button formType="submit" class="btn-normal ">
+              <text class="order-navbar__icon iconfont icondaifukuan"></text>
               <text class="order-navbar__name ">待付款</text>
               <text class="order-badge " wx:if="{{orderCount.payment> 0}}">{{orderCount.payment}}</text>
             </button>
@@ -51,7 +50,7 @@
         <view class="order-navbar-item flex-box">
           <form bindsubmit="onTargetOrder" data-type="payed" report-submit="true">
             <button formType="submit" class="btn-normal">
-              <text class="order-navbar__icon iconfont icon-daishouhuo"></text>
+              <text class="order-navbar__icon iconfont iconwancheng"></text>
               <text class="order-navbar__name">已付款</text>
               <text class="order-badge" wx:if="{{orderCount.received > 0}}">{{orderCount.received}}</text>
             </button>
@@ -60,7 +59,7 @@
         <view class="order-navbar-item flex-box">
           <form bindsubmit="onTargetOrder" data-type="cancel" report-submit="true">
             <button formType="submit" class="btn-normal">
-              <text class="order-navbar__icon iconfont icon-daishouhuo"></text>
+              <text class="order-navbar__icon iconfont iconcancel"></text>
               <text class="order-navbar__name">已取消</text>
               <text class="order-badge" wx:if="{{orderCount.received > 0}}">{{orderCount.received}}</text>
             </button>
@@ -69,7 +68,7 @@
         <view class="order-navbar-item flex-box" style="border-left:1px solid #ccc">
           <form bindsubmit="onTargetOrder" data-type="all" report-submit="true">
             <button formType="submit" class="btn-normal">
-              <text class="order-navbar__icon iconfont icon-form" style="color:red"></text>
+              <text class="order-navbar__icon iconfont iconwodedingdan" style="color:red"></text>
               <text class="order-navbar__name">我的订单</text>
             </button>
           </form>
@@ -81,7 +80,7 @@
 
   <view class="user-menu">
     <view class="item">
-      <navigator url="/pages/order/list" hover-class="none" class="a">
+      <navigator url="/pages/order-list/order-list" hover-class="none" class="a">
         <wxc-icon type='feedback' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
         <text class="txt">订单管理</text>
       </navigator>

@@ -10,11 +10,17 @@ spring:
     time-zone: GMT+8
     serialization:
       write-dates-as-timestamps: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 server:
   port: 9999
   servlet:
     context-path:
-
+  tomcat:
+    uri-encoding: UTF-8
 mpstore:
   service-url: http://localhost:${server.port}${server.servlet.context-path}
   file:

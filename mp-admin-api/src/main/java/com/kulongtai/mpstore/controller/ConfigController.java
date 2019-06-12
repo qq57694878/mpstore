@@ -39,7 +39,7 @@ public class ConfigController {
        Map<String,String> m = new HashMap<String,String>();
        if(list!=null&&list.size()>0){
            list.forEach(item->{
-               m.put(item.getKey(),item.getValue());
+               m.put(item.getK(),item.getV());
            });
        }
         result.setAppid(m.get("appid"));
@@ -53,10 +53,10 @@ public class ConfigController {
     public R<Boolean> saveAllConfig(@RequestBody  AllConfigVo allConfigVo){
         iConfigService.remove(Wrappers.update());
         List<Config> list = new ArrayList<>();
-        list.add(new Config().setKey("appid").setValue(allConfigVo.getAppid()));
-        list.add(new Config().setKey("appsecret").setValue(allConfigVo.getAppsecret()));
-        list.add(new Config().setKey("mchid").setValue(allConfigVo.getMchid()));
-        list.add(new Config().setKey("paykey").setValue(allConfigVo.getPaykey()));
+        list.add(new Config().setK("appid").setV(allConfigVo.getAppid()));
+        list.add(new Config().setK("appsecret").setV(allConfigVo.getAppsecret()));
+        list.add(new Config().setK("mchid").setV(allConfigVo.getMchid()));
+        list.add(new Config().setK("paykey").setV(allConfigVo.getPaykey()));
         iConfigService.saveBatch(list);
         return new R(true);
     }

@@ -38,11 +38,11 @@ public class NoticeController {
     }
     @PostMapping("/saveNotice")
     @ApiOperation(value="保存通知通告")
-    public R<Notice> saveNotice(@RequestBody Notice notice) {
+    public R<Boolean> saveNotice(@RequestBody Notice notice) {
         iNoticeService.remove(Wrappers.update());
         notice.setDelFlag("0");
         iNoticeService.save(notice);
-        return new R(notice);
+        return new R(true);
     }
 
 }
