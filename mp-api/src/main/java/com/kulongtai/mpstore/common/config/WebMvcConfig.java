@@ -57,19 +57,8 @@ public class WebMvcConfig {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(getUserAuthRestInterceptor()).
                         addPathPatterns("/**/*")
-                        .excludePathPatterns("/**/fonts/*")
-                        .excludePathPatterns("/**/*.css")
-                        .excludePathPatterns("/**/*.js")
-                        .excludePathPatterns("/**/*.png")
-                        .excludePathPatterns("/**/*.gif")
-                        .excludePathPatterns("/**/*.jpg")
-                        .excludePathPatterns("/**/*.jpeg")
-                        .excludePathPatterns("/**/*.html")
-                        .excludePathPatterns("/static/*")
-                        .excludePathPatterns("/public/*")
-                        .excludePathPatterns("/webjars/*")
-                        .excludePathPatterns("/api/public/*")
-                        .excludePathPatterns("/**/*");
+                        .excludePathPatterns("/mpapi/public/*")
+                        .excludePathPatterns("/mpapi/login");
             }
 
         };

@@ -1,6 +1,5 @@
 {
   "pages": [
-        
     "pages/tabbar/home",
     "pages/tabbar/catalog",
     "pages/tabbar/cart",
@@ -11,8 +10,9 @@
     "pages/order/list",
     "pages/order/detail",
     "pages/sku-detail/sku-detail",
-    "pages/cardcode/cardcode"
-
+    "pages/cardcode/cardcode",
+    "pages/sku/list",
+    "pages/sku/detail"
   ],
   "tabBar": {
     "backgroundColor": "#ffffff",
@@ -25,12 +25,6 @@
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home_on.png",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/tabbar/catalog",
-        "iconPath": "images/category.png",
-        "selectedIconPath": "images/category_on.png",
-        "text": "分类"
       },
       {
         "pagePath": "pages/tabbar/cart",

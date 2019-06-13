@@ -80,8 +80,8 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
         //3.发送服务消息
         try{
             User user = userMapper.selectById(card.getUserId());
-            Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
-            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
+            Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("k","appid"));
+            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("k","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
             wxaConfig.setAppId(appidConfig.getV());
             wxaConfig.setAppSecret(secretConfig.getV());
@@ -137,8 +137,8 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
         //3.发送服务消息
         try{
             User user = userMapper.selectById(card.getUserId());
-            Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appid"));
-            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("key","appsecret"));
+            Config appidConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("k","appid"));
+            Config secretConfig =  iConfigService.getOne(Wrappers.<Config>query().eq("k","appsecret"));
             WxaConfig wxaConfig = new WxaConfig();
             wxaConfig.setAppId(appidConfig.getV());
             wxaConfig.setAppSecret(secretConfig.getV());

@@ -13,7 +13,7 @@ import java.util.TreeMap;
  * 微信支付的统一下单工具类
  * @author L.cm
  */
-public class PaymentKit {
+public class SignKit {
 
     /**
      * 组装签名的字段
@@ -78,7 +78,7 @@ public class PaymentKit {
      */
     public static boolean verifyNotify(Map<String, String> params, String paternerKey){
         String sign = params.get("sign");
-        String localSign = PaymentKit.createSign(params, paternerKey);
+        String localSign = SignKit.createSign(params, paternerKey);
         return sign.equals(localSign);
     }
 

@@ -1,0 +1,75 @@
+
+
+
+function formatNumber2Date(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+function formatDateMD(timeMillis) {
+  var l = parseInt(timeMillis);
+  if (!l) return "";
+  var _date = getDate(l);
+  var month = _date.getMonth() + 1
+  var day = _date.getDate()
+  return [month, day].map(formatNumber2Date).join('-')
+}
+function formatDateYMD(timeMillis) {
+  var l = parseInt(timeMillis);
+  if (!l) return "";
+  var _date = getDate(l);
+  var year = _date.getFullYear()
+  var month = _date.getMonth() + 1
+  var day = _date.getDate()
+  var hour = _date.getHours()
+  var minute = _date.getMinutes()
+  var second = _date.getSeconds()
+
+  return [year, month, day].map(formatNumber2Date).join('-')
+}
+function formatDateYMDHMS(timeMillis) {
+  var l = parseInt(timeMillis);
+  if (!l) return "";
+  var _date = getDate(l);
+  var year = _date.getFullYear()
+  var month = _date.getMonth() + 1
+  var day = _date.getDate()
+  var hour = _date.getHours()
+  var minute = _date.getMinutes()
+  var second = _date.getSeconds()
+
+  return [year, month, day].map(formatNumber2Date).join('-') + ' ' + [hour, minute, second].map(formatNumber2Date).join(':')
+}
+function formatDateYMDHM(timeMillis) {
+  var l = parseInt(timeMillis);
+  if (!l) return "";
+  var _date = getDate(l);
+  var year = _date.getFullYear()
+  var month = _date.getMonth() + 1
+  var day = _date.getDate()
+  var hour = _date.getHours()
+  var minute = _date.getMinutes()
+  var second = _date.getSeconds()
+
+  return [year, month, day].map(formatNumber2Date).join('-') + ' ' + [hour, minute].map(formatNumber2Date).join(':')
+}
+function formatNumber(num, len) {
+  return num.toFixed(len);
+}
+function formatMoney(money) {
+  if (!money) return '0.00';
+  var m = money.toFixed(2);
+  if (money < 1000) return m;
+  var ms = m.split(".");
+  var intPart = ms[0]; //获取整数部分
+  var reg = getRegExp("(\d)(?=(?:\d{3})+$)", "g");
+  var intPartFormat = ms[0].replace(reg, '$1,'); //将整数部分逢三一断
+  return intPartFormat + "." + ms[1];
+}
+module.exports = {
+  formatNumber: formatNumber,
+  formatMoney: formatMoney,
+  formatDateYMD: formatDateYMD,
+  formatDateYMDHM: formatDateYMDHM,
+  formatDateYMDHMS: formatDateYMDHMS,
+  formatDateMD: formatDateMD
+};

@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-06-13
  */
 public interface IConfigService extends IService<Config> {
-
+    public String getAppid();
+    public String getAppsecret();
+    public String getMchid();
+    public String getPaykey();
 }

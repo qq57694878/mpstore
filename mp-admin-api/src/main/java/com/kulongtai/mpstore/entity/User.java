@@ -85,6 +85,15 @@ package com.kulongtai.mpstore.entity;
             @ApiModelProperty(value = "修改时间")
         @TableField("update_time")
     private Date updateTime;
+    @ApiModelProperty(value = "省")
+    @TableField("province")
+    private Date province;
+    @ApiModelProperty(value = "市")
+    @TableField("city")
+    private Date city;
+    @ApiModelProperty(value = "区")
+    @TableField("country")
+    private Date country;
 
             @ApiModelProperty(value = "逻辑删除")
         @TableField("del_flag")

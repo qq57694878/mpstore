@@ -12,6 +12,9 @@
         <result column="last_login_time" property="lastLoginTime" />
         <result column="nickname" property="nickname" />
         <result column="mobile" property="mobile" />
+        <result column="country" property="country" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
         <result column="avatar" property="avatar" />
         <result column="openid" property="openid" />
         <result column="session_key" property="sessionKey" />
@@ -23,7 +26,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, username, password, gender, birthday, last_login_time, nickname, mobile, avatar, openid, session_key, status, create_time, update_time, del_flag
+        user_id, username, password, gender, birthday, last_login_time, nickname, mobile, avatar, openid, session_key, status, create_time, update_time, del_flag,country,city,province
     </sql>
 
 </mapper>

@@ -2,7 +2,7 @@ package com.kulongtai.mpstore.common.mp.sdk;
 
 
 import com.kulongtai.mpstore.common.mp.util.HttpUtils;
-import com.kulongtai.mpstore.common.mp.util.PaymentKit;
+import com.kulongtai.mpstore.common.mp.util.SignKit;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -39,15 +39,15 @@ public class PaymentApi {
      * @return String
      */
     public static String pushOrder(Map<String, String> params) {
-        return HttpUtils.post(unifiedOrderUrl, PaymentKit.toXml(params));
+        return HttpUtils.post(unifiedOrderUrl, SignKit.toXml(params));
     }
 
     private static Map<String, String> request(String url, Map<String, String> params, String paternerKey) {
         params.put("nonce_str", System.currentTimeMillis() + "");
-        String sign = PaymentKit.createSign(params, paternerKey);
+        String sign = SignKit.createSign(params, paternerKey);
         params.put("sign", sign);
-        String xmlStr = HttpUtils.post(url, PaymentKit.toXml(params));
-        return PaymentKit.xmlToMap(xmlStr);
+        String xmlStr = HttpUtils.post(url, SignKit.toXml(params));
+        return SignKit.xmlToMap(xmlStr);
     }
 
     /**
@@ -70,13 +70,13 @@ public class PaymentApi {
         params.put("package", "WAP");
         params.put("prepayid", prepayId);
         params.put("timestamp", System.currentTimeMillis() / 1000 + "");
-        String sign = PaymentKit.createSign(params, paternerKey);
+        String sign = SignKit.createSign(params, paternerKey);
         params.put("sign", sign);
 
-        String string1 = PaymentKit.packageSign(params, true);
+        String string1 = SignKit.packageSign(params, true);
 
         String string2 = "";
-        try { string2 = PaymentKit.urlEncode(string1); } catch (UnsupportedEncodingException e) {}
+        try { string2 = SignKit.urlEncode(string1); } catch (UnsupportedEncodingException e) {}
 
         return "weixin://wap/pay?" + string2;
     }
@@ -147,11 +147,11 @@ public class PaymentApi {
      */
     public static Map<String, String> refund(Map<String, String> params, String paternerKey, String certPath) {
         params.put("nonce_str", System.currentTimeMillis() + "");
-        String sign = PaymentKit.createSign(params, paternerKey);
+        String sign = SignKit.createSign(params, paternerKey);
         params.put("sign", sign);
         String partner = params.get("mch_id");
-        String xmlStr = HttpUtils.postSSL(refundUrl, PaymentKit.toXml(params), certPath, partner);
-        return PaymentKit.xmlToMap(xmlStr);
+        String xmlStr = HttpUtils.postSSL(refundUrl, SignKit.toXml(params), certPath, partner);
+        return SignKit.xmlToMap(xmlStr);
     }
 
     // 查询退款文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_5
@@ -283,9 +283,9 @@ public class PaymentApi {
         } else {
             params.put("bill_type", BillType.ALL.name());
         }
-        String sign = PaymentKit.createSign(params, paternerKey);
+        String sign = SignKit.createSign(params, paternerKey);
         params.put("sign", sign);
-        return HttpUtils.post(downloadBillUrl, PaymentKit.toXml(params));
+        return HttpUtils.post(downloadBillUrl, SignKit.toXml(params));
     }
 
 }

@@ -7,7 +7,7 @@
 package com.kulongtai.mpstore.common.mp.sdk;
 
 
-import com.kulongtai.mpstore.common.mp.util.PaymentKit;
+import com.kulongtai.mpstore.common.mp.util.SignKit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -65,14 +65,14 @@ public class WxaPayApi {
         }
         String signKey = order.getSignKey();
         // 签名
-        String sign = PaymentKit.createSign(params, signKey);
+        String sign = SignKit.createSign(params, signKey);
         params.put("sign", sign);
         // 统一下单
         String xmlResult = PaymentApi.pushOrder(params);
         if (log.isDebugEnabled()) {
             log.debug("wxaapp pushOrder xmlResult:" + xmlResult);
         }
-        Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+        Map<String, String> result = SignKit.xmlToMap(xmlResult);
 
         String return_code = result.get("return_code");
         String return_msg = result.get("return_msg");
@@ -95,7 +95,7 @@ public class WxaPayApi {
         packageParams.put("nonceStr", System.currentTimeMillis() + "");
         packageParams.put("package", "prepay_id=" + prepay_id);
         packageParams.put("signType", "MD5");
-        String packageSign = PaymentKit.createSign(packageParams, signKey);
+        String packageSign = SignKit.createSign(packageParams, signKey);
         packageParams.put("paySign", packageSign);
         return packageParams;
     }
