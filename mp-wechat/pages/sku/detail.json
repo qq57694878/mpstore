@@ -1,6 +1,6 @@
 {
-  "navigationBarTitleText": "商品详情",
+  "navigationBarTitleText": "服务卡详情",
   "usingComponents": {
-    "shortcut": "/components/shortcut/shortcut"
+    "shortcut": "/mc/shortcut/shortcut"
   }
 }

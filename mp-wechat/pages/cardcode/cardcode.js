@@ -10,14 +10,14 @@ var st;
 var page ;
 Page( {
     data: {
-        barcode: 'TJ123124321117',
+        barcode: '',
     },
 
 
     onLoad: function ( options )
     {
         page = this;
-        module = new Module();
+      module = new Module(options.barCode);
         module.loadCardCode()
 
 
@@ -82,16 +82,16 @@ Page( {
 
 class Module {
 
-
-    constructor(  )
+    
+    constructor( barCode)
     {
-
+      this.barCode = barCode
     }
 
     loadCardCode()
     {
 
-      page.render( "883124321117" );
+      page.render(this.barCode);
 
     }
 }

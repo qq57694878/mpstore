@@ -57,8 +57,7 @@ Page({
   onShow() {
     var that = this;
     that.getUserApiInfo();
-    that.getUserAmount();
-    that.checkScoreSign();
+
     that.getAboutUs();
     that.getservicePhoneNumber();
 

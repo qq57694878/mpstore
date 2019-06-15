@@ -7,7 +7,34 @@ Page({
    */
   data: {
     dataType: 'all',
-    list: [],
+    list: [
+      {
+        orderNo:11111111111111,
+        orderId:1,
+        payStatus:'0',
+        orderStatus:'0',
+        createTime:new Date().getTime(),
+        payPrice:300,
+        skuList:[{
+          mainUrl:"http://www.kulongtai.com/1.jpg",
+        },{
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+        }],
+      },
+      {
+        orderNo: 11111111111111,
+        orderId: 1,
+        payStatus: '0',
+        orderStatus: '0',
+        createTime: new Date().getTime(),
+        payPrice: 300,
+        skuList: [{
+          mainUrl: "http://www.kulongtai.com/1.jpg",
+        }, {
+          mainUrl: "http://www.kulongtai.com/2.jpg",
+        }],
+      },
+    ],
   },
 
   /**
