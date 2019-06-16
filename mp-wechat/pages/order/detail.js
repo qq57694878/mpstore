@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order_id: null,
+    orderId: null,
     order: {},
   },
 
@@ -14,8 +14,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.order_id = options.order_id;
-    this.getOrderDetail(options.order_id);
+    this.data.orderId = options.orderId;
+    this.getOrderDetail(options.orderId);
   },
 
   /**

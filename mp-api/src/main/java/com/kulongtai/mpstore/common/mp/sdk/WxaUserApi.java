@@ -11,7 +11,7 @@ package com.kulongtai.mpstore.common.mp.sdk;
 import com.kulongtai.mpstore.common.mp.encrypt.WxaBizDataCrypt;
 import com.kulongtai.mpstore.common.mp.util.HashKit;
 import com.kulongtai.mpstore.common.mp.util.HttpUtils;
-import com.kulongtai.mpstore.common.mp.util.SignKit;
+import com.kulongtai.mpstore.common.mp.util.PaymentKit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +29,14 @@ public class WxaUserApi {
      * @param jsCode 登录时获取的 code
      * @return ApiResult
      */
-    public static ApiResult code2Session(String jsCode) {
+    public ApiResult getSessionKey(String jsCode) {
         WxaConfig wc = WxaConfigKit.getWxaConfig();
         Map<String, String> params = new HashMap<String, String>();
         params.put("appid", wc.getAppId());
         params.put("secret", wc.getAppSecret());
         params.put("js_code", jsCode);
         params.put("grant_type", "authorization_code");
-        String para = SignKit.packageSign(params, false);
+        String para = PaymentKit.packageSign(params, false);
         // 构造url
         String url = jsCode2sessionUrl + "?" + para;
         return new ApiResult(HttpUtils.get(url));
@@ -49,7 +49,7 @@ public class WxaUserApi {
      * @param ivStr 加密算法的初始向量
      * @return {ApiResult}
      */
-    public static ApiResult getUserInfo(String sessionKey, String encryptedData, String ivStr) {
+    public ApiResult getUserInfo(String sessionKey, String encryptedData, String ivStr) {
         WxaBizDataCrypt dataCrypt = new WxaBizDataCrypt(sessionKey);
         String json = dataCrypt.decrypt(encryptedData, ivStr);
         return new ApiResult(json);
@@ -62,7 +62,7 @@ public class WxaUserApi {
      * @param signature 数据签名
      * @return {boolean}
      */
-    public static boolean checkUserInfo(String sessionKey, String rawData, String signature) {
+    public boolean checkUserInfo(String sessionKey, String rawData, String signature) {
         StringBuffer sb = new StringBuffer(rawData).append(sessionKey);
         String encryData = HashKit.sha1(sb.toString());
         return encryData.equals(signature);

@@ -6,8 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activeTab:0,
     dataType: 'all',
-    list: [
+    tabs: [{type:"all",name:"全部订单"},
+      { type: "unpay", name: "待付款" },
+      { type: "payd", name: "已完成" },
+      { type: "cancel", name: "已取消" } ],
+    orderList: 
+    [
       {
         orderNo:11111111111111,
         orderId:1,
@@ -44,15 +50,23 @@ Page({
           mainUrl: "http://www.kulongtai.com/2.jpg",
         }],
       },
-    ],
+      ],
+    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.dataType = options.type || 'all';
-    this.setData({ dataType: this.data.dataType });
+    var dataType = options.type || 'all';
+    var activeTab=0;
+    this.data.tabs.forEach(function (e, index) {
+      if (e.type == dataType) {
+        activeTab = index;  
+        return;// 循环被跳过
+      };
+    })
+    this.setData({ dataType: dataType, activeTab: activeTab});
   },
 
   /**
@@ -60,7 +74,7 @@ Page({
    */
   onShow: function () {
     // 获取订单列表
-    this.getOrderList(this.data.dataType);
+  //  this.getOrderList(this.data.dataType);
   },
 
   /**
@@ -80,7 +94,15 @@ Page({
    * 切换标签
    */
   bindHeaderTap: function (e) {
-    this.setData({ dataType: e.target.dataset.type });
+    var dataType = e.target.dataset.type || 'all';
+    var activeTab = 0;
+    this.data.tabs.forEach(function (e, index) {
+      if (e.type == dataType) {
+        activeTab = index;
+        return;// 循环被跳过
+      };
+    })
+    this.setData({ dataType: dataType, activeTab: activeTab });
     // 获取订单列表
     this.getOrderList(e.target.dataset.type);
   },

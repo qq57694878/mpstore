@@ -1,7 +1,7 @@
 //app.js
 import properties from "./utils/properties.js"
 import aa from "./mock/index.js"
-import {_get,_post} from "./utils/request.js"
+import {_get,_post,_delete,_put} from "./utils/request.js"
 
 App({
   onLaunch: function () {
@@ -67,6 +67,8 @@ App({
     },
     _get:_get,
     _post:_post,
+    _delete:_delete,
+    _put:_put,
   /**
 * 显示成功提示框
 */
