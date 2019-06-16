@@ -23,10 +23,7 @@ Page({
     aboutUsTitle: '',
     aboutUsContent: '',
     servicePhoneNumber: '',
-    balance: 0,
-    freeze: 0,
-    score: 0,
-    score_sign_continuous: 0,
+    userInfo:{},
     iconSize: 45,
     iconColor: '#999999'
   },
@@ -47,26 +44,26 @@ Page({
       bgBlue: app.globalData.bgBlue
     })
 
-    let userInfo = wx.getStorageSync('userInfo')
-    if (!userInfo) {
-      // wx.navigateTo({
-      //   url: "/pages/authorize/index"
-      // })
-    }
+    
   },
   onShow() {
     var that = this;
     that.getUserApiInfo();
 
-    that.getservicePhoneNumber();
+    that.getServicePhoneNumber();
+    that.getUserInfo();
 
-    var userInfo = wx.getStorageSync('userInfo')
-    if (userInfo) {
-      that.setData({
-        userInfo: userInfo,
-      })
-    }
-
+  },
+  getUserInfo(){
+    var that = this
+    //  获取用户信息
+    app._get("/mpapi/user/getUserInfo", "").then(res => {
+      if (res.data.code = 200) {
+        that.setData({
+          userInfo: res.data
+        })
+      }
+    })
   },
   aboutUs: function () {
     var that = this
@@ -126,10 +123,10 @@ Page({
 
 
  
-  getservicePhoneNumber: function () {
+  getServicePhoneNumber: function () {
     var that = this
     //  获取客服电话
-    App._get("/mpapi/config/getServicePhoneNumber","").then(res=>{
+    app._get("/mpapi/config/getServicePhoneNumber","").then(res=>{
       if(res.data.code=200){
         that.setData({
           servicePhoneNumber: res.data.servicePhoneNumber

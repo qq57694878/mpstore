@@ -51,7 +51,7 @@
           <form bindsubmit="onTargetOrder" data-type="payed" report-submit="true">
             <button formType="submit" class="btn-normal">
               <text class="order-navbar__icon iconfont iconwancheng"></text>
-              <text class="order-navbar__name">已付款</text>
+              <text class="order-navbar__name">已完成</text>
               <text class="order-badge" wx:if="{{orderCount.received > 0}}">{{orderCount.received}}</text>
             </button>
           </form>
@@ -91,12 +91,7 @@
         <text class="txt">消费记录</text>
       </navigator>
     </view>
-   <view class="item">
-      <navigator url="/pages/order-list/order-list" hover-class="none" class="a">
-            <my-icon name="iconwodedingdan" info="99+" size='{{iconSize}}rpx' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'/>
-        <text class="txt">订单列表1</text>
-      </navigator>
-    </view>
+
     <view class="item no-border-right">
       <navigator url="/pages/location/location" hover-class="none" class="a">
       <my-icon name="iconjulipaixu"  size='{{iconSize}}rpx' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'/>

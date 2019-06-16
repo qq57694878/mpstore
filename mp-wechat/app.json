@@ -6,7 +6,7 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/tabbar/my",
-    "pages/order-list/order-list",
+    "pages/order-list/list",
     "pages/order/list",
     "pages/order/detail",
     "pages/cardcode/cardcode",
