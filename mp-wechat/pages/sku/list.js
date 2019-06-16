@@ -19,7 +19,7 @@ Page({
     noList: true,
     no_more: false,
 
-    page: 1,
+    current: 1,
   },
 
   /**
@@ -132,9 +132,9 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: "全部分类",
+      title: "全部商品",
       desc: "",
-      path: "/pages/category/index"
+      path: "/pages/sku/list"
     };
   },
 

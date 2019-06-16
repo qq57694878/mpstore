@@ -7,7 +7,42 @@ Page({
    */
   data: {
     orderId: null,
-    order: {},
+    order: {
+      orderNo: 11111111111111,
+      orderId: 1,
+      payStatus: '0',
+      orderStatus: '0',
+      createTime: new Date().getTime(),
+      payPrice: 300,
+      totalPrice:300,
+      skuList: [{
+        buyNum:1,
+        skuPrice:100.00,
+        mainUrl: "http://www.kulongtai.com/1.jpg",
+      }, {
+          buyNum: 1,
+          skuPrice: 100,
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }, {
+          buyNum: 2,
+          skuPrice: 100,
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }, {
+          buyNum: 2,
+          skuPrice: 100,
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }, {
+          buyNum: 2,
+          skuPrice: 100,
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }, {
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }, {
+          buyNum: 2,
+          skuPrice: 100,
+        mainUrl: "http://www.kulongtai.com/2.jpg",
+      }],
+    },
   },
 
   /**
@@ -21,35 +56,35 @@ Page({
   /**
    * 获取订单详情
    */
-  getOrderDetail: function (order_id) {
+  getOrderDetail: function (id) {
     let _this = this;
-    App._get('user.order/detail', { order_id }, function (result) {
-      _this.setData(result.data);
+    App._get('/mpapi/order/getOrderDetail', { id }).then(result=>{
+      _this.setData({order:result.data});
     });
   },
 
   /**
    * 跳转到商品详情
    */
-  goodsDetail: function (e) {
-    let goods_id = e.currentTarget.dataset.id;
+  skuDetail: function (e) {
+    let skuId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../goods/index?goods_id=' + goods_id
+      url: '../sku/detail?skuId=' + skuId
     });
   },
 
   /**
-   * 取消订单
-   */
+  * 取消订单
+  */
   cancelOrder: function (e) {
     let _this = this;
-    let order_id = _this.data.order_id;
+    let orderId = e.currentTarget.dataset.id;
     wx.showModal({
       title: "提示",
       content: "确认取消订单？",
       success: function (o) {
         if (o.confirm) {
-          App._post_form('user.order/cancel', { order_id }, function (result) {
+          App._post('/mpapi/order/cancel', { orderId }, function (result) {
             wx.navigateBack();
           });
         }
@@ -57,16 +92,16 @@ Page({
     });
   },
 
+
   /**
    * 发起付款
    */
   payOrder: function (e) {
     let _this = this;
-    let order_id = _this.data.order_id;
-
+    let orderId = _this.data.orderId;
     // 显示loading
     wx.showLoading({ title: '正在处理...', });
-    App._post_form('user.order/pay', { order_id }, function (result) {
+    App._post_form('/mpapi/order/pay', { orderId }, function (result) {
       if (result.code === -10) {
         App.showError(result.msg);
         return false;
@@ -79,6 +114,7 @@ Page({
         signType: 'MD5',
         paySign: result.data.paySign,
         success: function (res) {
+          // 重新获取订单
           _this.getOrderDetail(order_id);
         },
         fail: function () {
@@ -88,24 +124,7 @@ Page({
     });
   },
 
-  /**
-   * 确认收货
-   */
-  receipt: function (e) {
-    let _this = this;
-    let order_id = _this.data.order_id;
-    wx.showModal({
-      title: "提示",
-      content: "确认收到商品？",
-      success: function (o) {
-        if (o.confirm) {
-          App._post_form('user.order/receipt', { order_id }, function (result) {
-            _this.getOrderDetail(order_id);
-          });
-        }
-      }
-    });
-  },
+
 
 
 });

@@ -1,3 +1,4 @@
+<wxs src="../../comm.wxs" module="tools" />
 <view class="stv-container">
   <view class="tab-bar">
     <view wx:for="{{tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">

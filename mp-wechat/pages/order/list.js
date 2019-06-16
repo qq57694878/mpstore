@@ -155,7 +155,7 @@ Page({
 
     // 显示loading
     wx.showLoading({ title: '正在处理...', });
-    App._post_form('/mpapi/order/cancel/pay', { orderId }, function (result) {
+    App._post_form('/mpapi/order/pay', { orderId }, function (result) {
       if (result.code === -10) {
         App.showError(result.msg);
         return false;
