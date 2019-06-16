@@ -46,6 +46,7 @@ public class ConfigController {
         result.setAppsecret(m.get("appsecret"));
         result.setMchid(m.get("mchid"));
         result.setPaykey(m.get("paykey"));
+        result.setServerPhoneNumber(m.get("server_phone_number"));
         return new R(result);
     }
     @PostMapping("/saveAllConfig")
@@ -57,6 +58,7 @@ public class ConfigController {
         list.add(new Config().setK("appsecret").setV(allConfigVo.getAppsecret()));
         list.add(new Config().setK("mchid").setV(allConfigVo.getMchid()));
         list.add(new Config().setK("paykey").setV(allConfigVo.getPaykey()));
+        list.add(new Config().setK("server_phone_number").setV(allConfigVo.getServerPhoneNumber()));
         iConfigService.saveBatch(list);
         return new R(true);
     }

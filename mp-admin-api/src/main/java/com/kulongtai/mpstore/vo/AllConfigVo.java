@@ -19,4 +19,6 @@ public class AllConfigVo implements Serializable{
     private String mchid;
     @ApiModelProperty(value = "微信支付key")
     private String paykey;
+    @ApiModelProperty(value = "服务电话")
+    private String serverPhoneNumber;
 }

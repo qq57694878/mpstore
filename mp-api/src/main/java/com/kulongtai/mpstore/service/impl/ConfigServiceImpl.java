@@ -37,4 +37,9 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
     public String getPaykey() {
         return this.getOne(Wrappers.<Config>query().eq("k","paykey").last(" limit 1 ")).getV();
     }
+
+    @Override
+    public String getServerPhoneNumber() {
+        return this.getOne(Wrappers.<Config>query().eq("k","server_phone_number").last(" limit 1 ")).getV();
+    }
 }

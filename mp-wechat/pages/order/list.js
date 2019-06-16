@@ -19,7 +19,17 @@ Page({
           mainUrl:"http://www.kulongtai.com/1.jpg",
         },{
             mainUrl: "http://www.kulongtai.com/2.jpg",
-        }],
+          }, {
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+          }, {
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+          }, {
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+          }, {
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+          }, {
+            mainUrl: "http://www.kulongtai.com/2.jpg",
+          }],
       },
       {
         orderNo: 11111111111111,

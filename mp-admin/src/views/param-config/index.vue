@@ -30,6 +30,12 @@
                   <el-form-item label="微信支付密钥（paykey）" prop="appsecret">
                     <el-input v-model="configForm.paykey"  class="tpl-form-input" ></el-input>
                   </el-form-item>
+                  <div class="widget-head am-cf">
+                    <div class="widget-title am-fl">其他设置</div>
+                  </div>
+                  <el-form-item label="小程序端服务电话" prop="serverPhoneNumber">
+                    <el-input v-model="configForm.serverPhoneNumber"  class="tpl-form-input" ></el-input>
+                  </el-form-item>
 
                 <div class="am-form-group">
                   <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
@@ -58,7 +64,8 @@ export default {
             appid:"",
             appsecret:"",
             mchid:"",
-            paykey:""
+            paykey:"",
+            serverPhoneNumber:""
         }
     };
   },

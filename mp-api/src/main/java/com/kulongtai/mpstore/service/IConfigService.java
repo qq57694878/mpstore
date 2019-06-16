@@ -16,4 +16,5 @@ public interface IConfigService extends IService<Config> {
     public String getAppsecret();
     public String getMchid();
     public String getPaykey();
+    public String getServerPhoneNumber();
 }

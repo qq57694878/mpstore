@@ -1,66 +1,111 @@
-// pages/order/detail.js
+let App = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    order_id: null,
+    order: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.order_id = options.order_id;
+    this.getOrderDetail(options.order_id);
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 获取订单详情
    */
-  onReady: function () {
-
+  getOrderDetail: function (order_id) {
+    let _this = this;
+    App._get('user.order/detail', { order_id }, function (result) {
+      _this.setData(result.data);
+    });
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * 跳转到商品详情
    */
-  onShow: function () {
-
+  goodsDetail: function (e) {
+    let goods_id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../goods/index?goods_id=' + goods_id
+    });
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * 取消订单
    */
-  onHide: function () {
-
+  cancelOrder: function (e) {
+    let _this = this;
+    let order_id = _this.data.order_id;
+    wx.showModal({
+      title: "提示",
+      content: "确认取消订单？",
+      success: function (o) {
+        if (o.confirm) {
+          App._post_form('user.order/cancel', { order_id }, function (result) {
+            wx.navigateBack();
+          });
+        }
+      }
+    });
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * 发起付款
    */
-  onUnload: function () {
+  payOrder: function (e) {
+    let _this = this;
+    let order_id = _this.data.order_id;
 
+    // 显示loading
+    wx.showLoading({ title: '正在处理...', });
+    App._post_form('user.order/pay', { order_id }, function (result) {
+      if (result.code === -10) {
+        App.showError(result.msg);
+        return false;
+      }
+      // 发起微信支付
+      wx.requestPayment({
+        timeStamp: result.data.timeStamp,
+        nonceStr: result.data.nonceStr,
+        package: 'prepay_id=' + result.data.prepay_id,
+        signType: 'MD5',
+        paySign: result.data.paySign,
+        success: function (res) {
+          _this.getOrderDetail(order_id);
+        },
+        fail: function () {
+          App.showError('订单未支付');
+        },
+      });
+    });
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 确认收货
    */
-  onPullDownRefresh: function () {
-
+  receipt: function (e) {
+    let _this = this;
+    let order_id = _this.data.order_id;
+    wx.showModal({
+      title: "提示",
+      content: "确认收到商品？",
+      success: function (o) {
+        if (o.confirm) {
+          App._post_form('user.order/receipt', { order_id }, function (result) {
+            _this.getOrderDetail(order_id);
+          });
+        }
+      }
+    });
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+});

@@ -29,4 +29,10 @@ public class UserController {
         iUserService.updateById(user);
         return new R(true);
     }
+    @GetMapping("/getUserInfo")
+    public R<User> getUserInfo(){
+        Integer userId = BaseContextHandler.getUserID();
+        User user= iUserService.getById(userId);
+        return new R(user);
+    }
 }
