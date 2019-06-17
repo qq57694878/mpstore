@@ -14,7 +14,12 @@ Page({
     sortPrice: false,   // 价格从低到高
 
     option: {},
-    list: {},
+    list: [{ skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl:"http://www.kulongtai.com/1.jpg"},
+      { skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg" },
+      { skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg" },
+      { skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg" },
+      { skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg" },
+      { skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg" },],
 
     noList: true,
     no_more: false,
@@ -70,7 +75,7 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         _this.setData({
-          scrollHeight: res.windowHeight - 90,
+          scrollHeight: res.windowHeight - 102,
         });
       }
     });

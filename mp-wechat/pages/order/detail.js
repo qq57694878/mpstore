@@ -18,28 +18,34 @@ Page({
       skuList: [{
         buyNum:1,
         skuPrice:100.00,
+        skuName:"保养套餐",
         mainUrl: "http://www.kulongtai.com/1.jpg",
       }, {
           buyNum: 1,
           skuPrice: 100,
+          skuName: "洗车",
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }, {
           buyNum: 2,
           skuPrice: 100,
+          skuName: "四轮定位",
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }, {
           buyNum: 2,
           skuPrice: 100,
+          skuName: "机油机滤",
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }, {
           buyNum: 2,
           skuPrice: 100,
+          skuName: "爱车养护",
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }, {
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }, {
           buyNum: 2,
           skuPrice: 100,
+          skuName: "洗车",
         mainUrl: "http://www.kulongtai.com/2.jpg",
       }],
     },

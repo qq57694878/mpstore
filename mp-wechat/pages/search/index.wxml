@@ -16,8 +16,9 @@
       </view>
     </view>
     <view class="search-cont-box" wx:if="{{recentSearch.length}}">
-      <view class="title-box">最近搜索
-        <text bindtap="clearSearch" class="iconfont icon-lajixiang col-7"></text>
+      <view class="title-box zan-clearfix" >
+        <text class="zan-pull-left">最近搜索</text>
+        <text  bindtap="clearSearch" class="iconfont iconchangyonggoupiaorenshanchu  zan-pull-right"></text>
       </view>
       <view class="sale-button-box">
         <view class="seconds-kill-li" wx:for="{{recentSearch}}" wx:for-index="idx" wx:for-item="recent" wx:key="hotrecent">

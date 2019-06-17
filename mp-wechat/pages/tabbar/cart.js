@@ -144,7 +144,7 @@ Page({
    */
   goShopping: function () {
     wx.switchTab({
-      url: '../index/index',
+      url: '../tabbar/home',
     });
   },
 

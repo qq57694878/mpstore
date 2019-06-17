@@ -56,7 +56,7 @@
         <text class="flex-five">订单金额</text>
       </view>
       <view class="dis-flex flow-all-list-cont">
-        <text class="flex-five col-7">商品金额:</text>
+        <text class="flex-five col-7">总金额:</text>
         <text class="flex-five col-m t-r">￥{{tools.formatMoney(order.totalPrice)}}</text>
       </view>
       <view class="dis-flex flow-all-list-cont">
