@@ -18,7 +18,8 @@ Page({
     floorstatus: false, // 返回顶部
     showView: true, // 显示商品规格
 
-    detail: {}, // 商品详情信息
+    detail: { skuId:1, skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg", salesNum: 10,
+    content:"<img src='http://www.kulongtai.com/1.jpg' />"}, // 商品详情信息
     goods_price: 0, // 商品价格
     line_price: 0, // 划线价格
     stock_num: 0, // 库存数量
@@ -38,9 +39,12 @@ Page({
   onLoad(options) {
     let _this = this;
     // 商品id
-    _this.data.goods_id = options.goods_id;
+  //  _this.data.skuId = options.goods_id;
     // 获取商品信息
-    _this.getGoodsDetail();
+  //  _this.getGoodsDetail();
+    if (_this.data.detail.content.length > 0) {
+      wxParse.wxParse('content', 'html', _this.data.detail.content, _this, 0);
+    }
   },
 
   /**

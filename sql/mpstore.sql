@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-06-14 00:34:13
+Date: 2019-06-18 23:19:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -99,6 +99,22 @@ INSERT INTO `mp_card_record` VALUES ('9', '1', '1', '1', '267.00', '3.00', '264.
 INSERT INTO `mp_card_record` VALUES ('10', '3', '3', '1', null, null, null, '1', '1', '19', '20', '2019-06-12 19:32:47');
 
 -- ----------------------------
+-- Table structure for mp_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `mp_cart`;
+CREATE TABLE `mp_cart` (
+  `cart_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '购物车id',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `sku_id` int(11) DEFAULT NULL COMMENT '商品id',
+  `sku_num` int(11) DEFAULT NULL COMMENT '数量',
+  PRIMARY KEY (`cart_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车';
+
+-- ----------------------------
+-- Records of mp_cart
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for mp_combo_sku
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_combo_sku`;
@@ -126,7 +142,7 @@ CREATE TABLE `mp_config` (
   `k` varchar(255) DEFAULT NULL COMMENT 'key',
   `v` varchar(255) DEFAULT NULL COMMENT 'value',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='配置表';
 
 -- ----------------------------
 -- Records of mp_config
@@ -135,6 +151,7 @@ INSERT INTO `mp_config` VALUES ('1', 'appid', '1');
 INSERT INTO `mp_config` VALUES ('2', 'appsecret', '2');
 INSERT INTO `mp_config` VALUES ('3', 'mchid', '3');
 INSERT INTO `mp_config` VALUES ('4', 'paykey', '4');
+INSERT INTO `mp_config` VALUES ('5', ' server_phone_number', '13842823735');
 
 -- ----------------------------
 -- Table structure for mp_notice

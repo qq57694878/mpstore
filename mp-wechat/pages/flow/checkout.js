@@ -79,15 +79,6 @@ Page({
   },
 
   /**
-   * 选择收货地址
-   */
-  selectAddress: function() {
-    wx.navigateTo({
-      url: '../address/' + (this.data.exist_address ? 'index?from=flow' : 'create')
-    });
-  },
-
-  /**
    * 订单提交
    */
   submitOrder: function() {

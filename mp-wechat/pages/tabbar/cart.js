@@ -6,7 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goods_list: [], // 商品列表
+    skuList: [{
+      skuId: 1, skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg", salesNum: 10,
+      content: "<img src='http://www.kulongtai.com/1.jpg' />", total_num:10
+    }, {
+      skuId: 1, skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg", salesNum: 10,
+        content: "<img src='http://www.kulongtai.com/1.jpg' />", total_num: 10
+      }, {
+        skuId: 1, skuName: "小保养", skuPrice: 100, linePrice: 120, mainUrl: "http://www.kulongtai.com/1.jpg", salesNum: 10,
+        content: "<img src='http://www.kulongtai.com/1.jpg' />", total_num: 10
+      }, ], // 商品列表
     order_total_num: 0,
     order_total_price: 0,
   },
@@ -30,9 +39,9 @@ Page({
    */
   getCartList: function () {
     let _this = this;
-    App._get('/cart/list', {}).then(function(result){
-      _this.setData(result.data);
-    }) 
+    App._get('/mpapi/cart/list', {}).then(res=>{
+        res
+    });
   },
 
   /**

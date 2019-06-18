@@ -36,18 +36,7 @@
             </view>
           </view>
     </view>
-   
-<view class="buy_number">
-            <view class="buyNumber f-26">
-              <text>购买数量</text>
-            </view>
-            <view class="selectNumber">
-              <button bindtap="down" class="default  {{goods_num>1?'':' default-active'}}" type="default">-</button>
-              <input bindinput="import" type="number" value="{{goods_num}}" disabled></input>
-              <button bindtap="up" class="default" type="default">+</button>
-            </view>
-          </view>
-
+ 
     <!-- 商品描述 -->
     <view class="p-bottom">
       <view class="top-nav m-top20 b-f b-b">
